@@ -2,29 +2,16 @@ import { useState } from 'react';
 import { View, Text, TextInput, Pressable, StyleSheet } from 'react-native';
 import { colors, fonts, radii, spacing } from '../theme';
 
-type Variant = 'default' | 'green' | 'yellow';
-
-// Only rose and sage carry color meaning. "Yellow" flags stay neutral and
-// borrow the dashed motif (not-yet-resolved) instead of inventing a third hue.
-const VARIANT_STYLES: Record<Variant, { border: string; text: string; bg: string; dashed?: boolean }> = {
-  default: { border: colors.ink, text: colors.ink, bg: 'transparent' },
-  green: { border: colors.sage, text: colors.sage, bg: colors.sageFaint },
-  yellow: { border: colors.ink, text: colors.ink, bg: 'transparent', dashed: true },
-};
-
 export function ChipInput({
   values,
   onChange,
   placeholder = 'Add',
-  variant = 'default',
 }: {
   values: string[];
   onChange: (values: string[]) => void;
   placeholder?: string;
-  variant?: Variant;
 }) {
   const [draft, setDraft] = useState('');
-  const style = VARIANT_STYLES[variant];
 
   function commit() {
     const trimmed = draft.trim();
@@ -41,17 +28,9 @@ export function ChipInput({
   return (
     <View style={styles.wrap}>
       {values.map((value) => (
-        <Pressable
-          key={value}
-          onPress={() => remove(value)}
-          style={[
-            styles.chip,
-            { borderColor: style.border, backgroundColor: style.bg },
-            style.dashed && styles.chipDashed,
-          ]}
-        >
-          <Text style={[styles.chipText, { color: style.text }]}>{value}</Text>
-          <Text style={[styles.chipText, { color: style.text, marginLeft: 4 }]}>×</Text>
+        <Pressable key={value} onPress={() => remove(value)} style={styles.chip}>
+          <Text style={styles.chipText}>{value}</Text>
+          <Text style={[styles.chipText, { marginLeft: 4 }]}>×</Text>
         </Pressable>
       ))}
       <TextInput
@@ -74,16 +53,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1.3,
-    borderRadius: radii.pill,
+    borderColor: colors.ink,
+    borderRadius: radii.sm,
     paddingHorizontal: 10,
     paddingVertical: 6,
   },
   chipText: {
     fontFamily: fonts.sansMedium,
     fontSize: 12,
-  },
-  chipDashed: {
-    borderStyle: 'dashed',
+    color: colors.ink,
   },
   chipInput: {
     minWidth: 90,

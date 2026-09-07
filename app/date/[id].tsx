@@ -2,6 +2,7 @@ import { View, Text, Pressable, Alert, ScrollView, StyleSheet } from 'react-nati
 import { router, useLocalSearchParams } from 'expo-router';
 import { useShallow } from 'zustand/react/shallow';
 import { DetailHeader } from '../../src/components/DetailHeader';
+import { RatingDots } from '../../src/components/RatingDots';
 import { NoteList } from '../../src/components/NoteList';
 import { useStore } from '../../src/store/useStore';
 import { colors, fonts, radii, spacing } from '../../src/theme';
@@ -42,6 +43,10 @@ export default function DateDetailScreen() {
       <ScrollView contentContainerStyle={styles.content}>
         <Text style={styles.dateText}>{formatDateTime(entry.occurredAt)}</Text>
         {entry.location ? <Text style={styles.location}>{entry.location}</Text> : null}
+
+        <View style={styles.ratingRow}>
+          <RatingDots rating={entry.rating} size={14} />
+        </View>
 
         {entry.significantMoments ? (
           <View style={styles.section}>
@@ -94,7 +99,8 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.paper },
   content: { padding: spacing.lg, paddingBottom: 80 },
   dateText: { fontFamily: fonts.sansMedium, fontSize: 13, color: colors.inkFaint },
-  location: { fontFamily: fonts.serif, fontSize: 19, color: colors.ink, marginTop: 4, marginBottom: spacing.lg },
+  location: { fontFamily: fonts.serif, fontSize: 19, color: colors.ink, marginTop: 4 },
+  ratingRow: { marginTop: spacing.md, marginBottom: spacing.lg },
   section: { marginBottom: spacing.lg },
   tagGroup: { marginBottom: spacing.md },
   sectionLabel: {
@@ -109,7 +115,7 @@ const styles = StyleSheet.create({
   chip: {
     borderWidth: 1.3,
     borderColor: colors.ink,
-    borderRadius: radii.pill,
+    borderRadius: radii.sm,
     paddingHorizontal: 10,
     paddingVertical: 5,
   },

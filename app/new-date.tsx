@@ -5,6 +5,7 @@ import { useShallow } from 'zustand/react/shallow';
 import { ModalScreen } from '../src/components/ModalScreen';
 import { Field, TextField } from '../src/components/FormField';
 import { ChipInput } from '../src/components/ChipInput';
+import { RatingDots } from '../src/components/RatingDots';
 import { PickerRow } from '../src/components/PickerRow';
 import { PersonPickerModal } from '../src/components/PersonPickerModal';
 import { NoteList } from '../src/components/NoteList';
@@ -24,20 +25,21 @@ export default function NewDateScreen() {
   const initialPersonId = existing?.personId ?? prefillPersonId;
   const [personId, setPersonId] = useState<string | undefined>(initialPersonId);
   const [location, setLocation] = useState(existing?.location ?? '');
+  const [rating, setRating] = useState(existing?.rating ?? 0);
   const [significantMoments, setSignificantMoments] = useState(existing?.significantMoments ?? '');
   const [feelingTags, setFeelingTags] = useState<string[]>(existing?.feelingTags ?? []);
   const [activityTags, setActivityTags] = useState<string[]>(existing?.activityTags ?? []);
   const [pickerOpen, setPickerOpen] = useState(false);
 
   const selectedPerson = people.find((p) => p.id === personId);
-  const canSave = !!personId;
+  const canSave = !!personId && rating > 0;
 
   async function handleSave() {
     if (!canSave || !personId) return;
     if (existing) {
-      await updateEntry(existing.id, { location, significantMoments, feelingTags, activityTags });
+      await updateEntry(existing.id, { location, rating, significantMoments, feelingTags, activityTags });
     } else {
-      await addEntry({ personId, location, significantMoments, feelingTags, activityTags });
+      await addEntry({ personId, location, rating, significantMoments, feelingTags, activityTags });
     }
     router.back();
   }
@@ -70,6 +72,10 @@ export default function NewDateScreen() {
 
       <Field label="Location">
         <TextField value={location} onChangeText={setLocation} placeholder="Where'd you go?" />
+      </Field>
+
+      <Field label="Overall rating">
+        <RatingDots rating={rating} onChange={setRating} size={16} />
       </Field>
 
       <Field label="Significant moments">

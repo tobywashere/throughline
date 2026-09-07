@@ -7,12 +7,13 @@ import { NoteList } from '../../src/components/NoteList';
 import { EntryRow } from '../../src/components/EntryRow';
 import { useStore } from '../../src/store/useStore';
 import { colors, fonts, radii, spacing } from '../../src/theme';
-import { formatFullDate } from '../../src/utils/date';
+import { computeEntryOrdinals } from '../../src/utils/ordinal';
 
 export default function PersonDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const person = useStore((s) => s.getPerson(id));
   const entries = useStore(useShallow((s) => s.entriesForPerson(id)));
+  const entryOrdinals = computeEntryOrdinals(entries);
   const notes = useStore(useShallow((s) => s.notesFor('person', id)));
   const stepAway = useStore((s) => s.stepAway);
   const resume = useStore((s) => s.resume);
@@ -77,11 +78,11 @@ export default function PersonDetailScreen() {
           <View style={styles.flagsSection}>
             {person.greenFlags.length > 0 && (
               <View style={styles.flagRow}>
-                <Text style={[styles.flagLabel, { color: colors.sage }]}>Green flags</Text>
+                <Text style={styles.flagLabel}>Green flags</Text>
                 <View style={styles.chipRow}>
                   {person.greenFlags.map((f) => (
-                    <View key={f} style={[styles.chip, { borderColor: colors.sage, backgroundColor: colors.sageFaint }]}>
-                      <Text style={[styles.chipText, { color: colors.sage }]}>{f}</Text>
+                    <View key={f} style={styles.chip}>
+                      <Text style={styles.chipText}>{f}</Text>
                     </View>
                   ))}
                 </View>
@@ -89,11 +90,11 @@ export default function PersonDetailScreen() {
             )}
             {person.yellowFlags.length > 0 && (
               <View style={styles.flagRow}>
-                <Text style={[styles.flagLabel, { color: colors.inkFaint }]}>Yellow flags</Text>
+                <Text style={styles.flagLabel}>Yellow flags</Text>
                 <View style={styles.chipRow}>
                   {person.yellowFlags.map((f) => (
-                    <View key={f} style={[styles.chip, styles.chipDashed, { borderColor: colors.ink }]}>
-                      <Text style={[styles.chipText, { color: colors.ink }]}>{f}</Text>
+                    <View key={f} style={styles.chip}>
+                      <Text style={styles.chipText}>{f}</Text>
                     </View>
                   ))}
                 </View>
@@ -110,7 +111,13 @@ export default function PersonDetailScreen() {
           <Text style={styles.emptyText}>No dates logged yet.</Text>
         ) : (
           entries.map((entry) => (
-            <EntryRow key={entry.id} entry={entry} personName={formatFullDate(entry.occurredAt)} showPersonName={false} />
+            <EntryRow
+              key={entry.id}
+              entry={entry}
+              personName={person.name}
+              ordinal={entryOrdinals.get(entry.id) ?? 1}
+              showPersonName={false}
+            />
           ))
         )}
 
@@ -131,7 +138,7 @@ const styles = StyleSheet.create({
   actionsRow: { flexDirection: 'row', gap: spacing.sm, marginBottom: spacing.lg },
   primaryAction: {
     backgroundColor: colors.rose,
-    borderRadius: radii.pill,
+    borderRadius: radii.sm,
     paddingHorizontal: 18,
     paddingVertical: 10,
   },
@@ -139,18 +146,23 @@ const styles = StyleSheet.create({
   secondaryAction: {
     borderWidth: 1.3,
     borderColor: colors.outlineDash,
-    borderRadius: radii.pill,
+    borderRadius: radii.sm,
     paddingHorizontal: 18,
     paddingVertical: 10,
   },
   secondaryActionText: { fontFamily: fonts.sansMedium, fontSize: 13, color: colors.inkDim },
   flagsSection: { marginBottom: spacing.lg, gap: spacing.sm },
   flagRow: { gap: 6 },
-  flagLabel: { fontFamily: fonts.serifItalic, fontStyle: 'italic', fontSize: 12 },
+  flagLabel: { fontFamily: fonts.serifItalic, fontStyle: 'italic', fontSize: 12, color: colors.rose },
   chipRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 6 },
-  chip: { borderWidth: 1.3, borderRadius: radii.pill, paddingHorizontal: 10, paddingVertical: 5 },
-  chipDashed: { borderStyle: 'dashed' },
-  chipText: { fontFamily: fonts.sansMedium, fontSize: 11.5 },
+  chip: {
+    borderWidth: 1.3,
+    borderColor: colors.ink,
+    borderRadius: radii.sm,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+  },
+  chipText: { fontFamily: fonts.sansMedium, fontSize: 11.5, color: colors.ink },
   sectionLabel: {
     fontFamily: fonts.serifItalic,
     fontStyle: 'italic',

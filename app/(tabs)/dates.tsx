@@ -4,11 +4,14 @@ import { Screen } from '../../src/components/Screen';
 import { EntryRow } from '../../src/components/EntryRow';
 import { useStore } from '../../src/store/useStore';
 import { groupByMonth } from '../../src/utils/date';
+import { computeEntryOrdinals } from '../../src/utils/ordinal';
 import { colors, fonts, spacing } from '../../src/theme';
 
 export default function DatesScreen() {
   const entries = useStore((s) => s.entries);
   const people = useStore((s) => s.people);
+
+  const ordinals = useMemo(() => computeEntryOrdinals(entries), [entries]);
 
   const groups = useMemo(() => {
     const sorted = [...entries].sort((a, b) => b.occurredAt - a.occurredAt);
@@ -28,6 +31,7 @@ export default function DatesScreen() {
                 key={entry.id}
                 entry={entry}
                 personName={people.find((p) => p.id === entry.personId)?.name ?? 'Unknown'}
+                ordinal={ordinals.get(entry.id) ?? 1}
               />
             ))}
           </View>

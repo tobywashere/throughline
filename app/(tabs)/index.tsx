@@ -4,9 +4,7 @@ import { router } from 'expo-router';
 import { Screen } from '../../src/components/Screen';
 import { useStore } from '../../src/store/useStore';
 import { Avatar } from '../../src/components/Avatar';
-import { Thread } from '../../src/components/Thread';
 import { colors, fonts, radii, spacing } from '../../src/theme';
-import { computeJourneyInsight } from '../../src/utils/journey';
 import type { Person } from '../../src/types';
 
 export default function HomeScreen() {
@@ -14,9 +12,19 @@ export default function HomeScreen() {
   const entries = useStore((s) => s.entries);
   const stepAway = useStore((s) => s.stepAway);
 
+  const entryCounts = useMemo(() => {
+    const counts = new Map<string, number>();
+    for (const entry of entries) {
+      counts.set(entry.personId, (counts.get(entry.personId) ?? 0) + 1);
+    }
+    return counts;
+  }, [entries]);
+
   const preDate = useMemo(() => people.filter((p) => p.status === 'pre-date'), [people]);
   const dating = useMemo(() => people.filter((p) => p.status === 'dating'), [people]);
-  const journey = useMemo(() => computeJourneyInsight(entries), [entries]);
+  const firstDate = useMemo(() => dating.filter((p) => (entryCounts.get(p.id) ?? 0) === 1), [dating, entryCounts]);
+  const secondDate = useMemo(() => dating.filter((p) => (entryCounts.get(p.id) ?? 0) === 2), [dating, entryCounts]);
+  const thirdPlusDate = useMemo(() => dating.filter((p) => (entryCounts.get(p.id) ?? 0) >= 3), [dating, entryCounts]);
 
   function onLongPressCard(person: Person) {
     Alert.alert(person.name, undefined, [
@@ -30,14 +38,15 @@ export default function HomeScreen() {
       <Text style={styles.sectionLabel}>Pipeline</Text>
       <View style={styles.columns}>
         <PipelineColumn label="Pre-date" color={colors.rose} people={preDate} onLongPress={onLongPressCard} />
-        <PipelineColumn label="Dating" color={colors.sage} people={dating} onLongPress={onLongPressCard} />
+        <PipelineColumn label="1st date" color={colors.sage} people={firstDate} onLongPress={onLongPressCard} />
+        <PipelineColumn label="2nd date" color={colors.sage} people={secondDate} onLongPress={onLongPressCard} />
+        <PipelineColumn label="3rd+ date" color={colors.sage} people={thirdPlusDate} onLongPress={onLongPressCard} />
       </View>
 
-      <Text style={[styles.sectionLabel, { marginTop: spacing.xl }]}>Journey</Text>
+      <Text style={[styles.sectionLabel, { marginTop: spacing.xl, opacity: 0.5 }]}>Journey</Text>
       <View style={styles.journeyCard}>
-        <Thread count={journey.entryCount} width={280} height={56} />
+        <Text style={styles.journeyPaused}>on hold for now</Text>
       </View>
-      <Text style={styles.journeyInsight}>{journey.insight}</Text>
     </Screen>
   );
 }
@@ -57,7 +66,7 @@ function PipelineColumn({
     <View style={styles.column}>
       <Text style={[styles.columnLabel, { color }]}>{label}</Text>
       {people.length === 0 ? (
-        <Text style={styles.emptyText}>Nobody here yet</Text>
+        <Text style={styles.emptyText}>—</Text>
       ) : (
         people.map((person) => (
           <Pressable
@@ -66,7 +75,7 @@ function PipelineColumn({
             onPress={() => router.push(`/person/${person.id}`)}
             onLongPress={() => onLongPress(person)}
           >
-            <Avatar name={person.name} size={26} />
+            <Avatar name={person.name} size={22} />
             <Text style={styles.cardName} numberOfLines={1}>
               {person.name}
             </Text>
@@ -85,12 +94,12 @@ const styles = StyleSheet.create({
     color: colors.rose,
     marginBottom: spacing.sm,
   },
-  columns: { flexDirection: 'row', gap: spacing.md },
-  column: { flex: 1 },
+  columns: { flexDirection: 'row', gap: spacing.xs },
+  column: { flex: 1, minWidth: 0 },
   columnLabel: {
     fontFamily: fonts.serifItalic,
     fontStyle: 'italic',
-    fontSize: 11.5,
+    fontSize: 10.5,
     marginBottom: spacing.sm,
   },
   card: {
@@ -98,27 +107,28 @@ const styles = StyleSheet.create({
     borderColor: colors.outlineDash,
     borderRadius: radii.sm,
     backgroundColor: colors.card,
-    padding: 9,
-    flexDirection: 'row',
+    padding: 6,
     alignItems: 'center',
-    gap: spacing.sm,
-    marginBottom: spacing.sm,
+    gap: 4,
+    marginBottom: spacing.xs,
   },
-  cardName: { fontFamily: fonts.sansMedium, fontSize: 12.5, color: colors.ink, flexShrink: 1 },
-  emptyText: { fontFamily: fonts.sans, fontSize: 12, color: colors.inkFaint, fontStyle: 'italic' },
+  cardName: { fontFamily: fonts.sansMedium, fontSize: 10, color: colors.ink, textAlign: 'center' },
+  emptyText: { fontFamily: fonts.sans, fontSize: 12, color: colors.inkFaint, opacity: 0.4 },
   journeyCard: {
     borderWidth: 1.3,
     borderColor: colors.outlineDash,
     borderRadius: radii.sm,
     backgroundColor: colors.card,
     padding: 10,
+    height: 56,
     alignItems: 'center',
+    justifyContent: 'center',
+    opacity: 0.5,
   },
-  journeyInsight: {
-    fontFamily: fonts.sans,
-    fontSize: 13,
-    color: colors.inkDim,
-    marginTop: spacing.sm,
-    lineHeight: 19,
+  journeyPaused: {
+    fontFamily: fonts.serifItalic,
+    fontStyle: 'italic',
+    fontSize: 12.5,
+    color: colors.inkFaint,
   },
 });

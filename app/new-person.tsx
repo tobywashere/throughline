@@ -63,8 +63,8 @@ export default function NewPersonScreen() {
       <Field label="Status">
         <PillSelector
           options={[
-            { value: 'prospect', label: 'Prospect' },
-            { value: 'pre-date', label: 'Pre-date' },
+            { value: 'prospect', label: 'Prospect', dot: 'dashed' },
+            { value: 'pre-date', label: 'Pre-date', dot: 'rose' },
           ]}
           value={status}
           onChange={setStatus}
@@ -78,12 +78,12 @@ export default function NewPersonScreen() {
         )}
       </Field>
 
-      <Field label="Green flags" color={colors.sage}>
-        <ChipInput values={greenFlags} onChange={setGreenFlags} placeholder="Add a green flag" variant="green" />
+      <Field label="Green flags">
+        <ChipInput values={greenFlags} onChange={setGreenFlags} placeholder="Add a green flag" />
       </Field>
 
-      <Field label="Yellow flags" color={colors.inkFaint}>
-        <ChipInput values={yellowFlags} onChange={setYellowFlags} placeholder="Add a yellow flag" variant="yellow" />
+      <Field label="Yellow flags">
+        <ChipInput values={yellowFlags} onChange={setYellowFlags} placeholder="Add a yellow flag" />
       </Field>
 
       <Field label="Notes">

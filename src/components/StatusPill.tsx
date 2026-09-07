@@ -24,7 +24,7 @@ export function StatusPill({ status }: { status: PersonStatus }) {
 const styles = StyleSheet.create({
   pill: {
     borderWidth: 1.3,
-    borderRadius: radii.pill,
+    borderRadius: radii.sm,
     paddingHorizontal: 10,
     paddingVertical: 3,
     alignSelf: 'flex-start',

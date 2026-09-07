@@ -15,6 +15,11 @@ export function formatFullDate(timestamp: number): string {
   return `${MONTH_NAMES[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
 }
 
+export function formatShortDate(timestamp: number): string {
+  const d = new Date(timestamp);
+  return `${d.getMonth() + 1}/${d.getDate()}`;
+}
+
 export function formatDateTime(timestamp: number): string {
   const d = new Date(timestamp);
   let hours = d.getHours();
