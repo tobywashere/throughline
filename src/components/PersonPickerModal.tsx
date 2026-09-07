@@ -3,7 +3,7 @@ import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { useStore } from '../store/useStore';
 import { SelectModal } from './SelectModal';
 import { TextField } from './FormField';
-import { colors, fonts, spacing } from '../theme';
+import { colors, fonts, radii, spacing } from '../theme';
 import type { Person } from '../types';
 
 export function PersonPickerModal({
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     borderWidth: 1.3,
     borderStyle: 'dashed',
     borderColor: colors.outlineDash,
-    borderRadius: 8,
+    borderRadius: radii.sm,
     padding: 10,
   },
   plusDot: {

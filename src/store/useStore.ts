@@ -17,7 +17,6 @@ interface NewPersonInput {
 interface NewEntryInput {
   personId: string;
   location: string;
-  rating: number;
   significantMoments: string;
   feelingTags: string[];
   activityTags: string[];
@@ -146,7 +145,6 @@ export const useStore = create<Store>((set, get) => ({
       personId: input.personId,
       occurredAt: input.occurredAt ?? now,
       location: input.location.trim(),
-      rating: input.rating,
       significantMoments: input.significantMoments.trim(),
       feelingTags: input.feelingTags,
       activityTags: input.activityTags,

@@ -1,35 +1,38 @@
 import type { DateEntry } from '../types';
 
 export interface JourneyInsight {
-  points: number[];
+  entryCount: number;
   insight: string;
 }
 
+function mostFrequentTag(entries: DateEntry[]): { tag: string; count: number } | null {
+  const counts = new Map<string, number>();
+  for (const entry of entries) {
+    for (const tag of [...entry.feelingTags, ...entry.activityTags]) {
+      counts.set(tag, (counts.get(tag) ?? 0) + 1);
+    }
+  }
+  let best: { tag: string; count: number } | null = null;
+  for (const [tag, count] of counts) {
+    if (!best || count > best.count) best = { tag, count };
+  }
+  return best;
+}
+
 export function computeJourneyInsight(entries: DateEntry[]): JourneyInsight {
-  const chronological = [...entries].sort((a, b) => a.occurredAt - b.occurredAt);
-  const points = chronological.map((e) => e.rating);
+  const entryCount = entries.length;
 
-  if (chronological.length === 0) {
-    return { points: [], insight: 'Log a date to start seeing your patterns here.' };
-  }
-  if (chronological.length < 4) {
-    return { points, insight: 'A few more logged dates and a pattern will start to show.' };
+  if (entryCount === 0) {
+    return { entryCount, insight: 'Log a date to start seeing your patterns here.' };
   }
 
-  const mid = Math.floor(chronological.length / 2);
-  const firstHalf = chronological.slice(0, mid);
-  const secondHalf = chronological.slice(mid);
-  const avg = (arr: DateEntry[]) => arr.reduce((sum, e) => sum + e.rating, 0) / arr.length;
-  const earlyAvg = avg(firstHalf);
-  const recentAvg = avg(secondHalf);
-  const overallAvg = avg(chronological);
-  const delta = recentAvg - earlyAvg;
+  const dateWord = entryCount === 1 ? 'date' : 'dates';
+  let insight = `You've logged ${entryCount} ${dateWord} since you started paying attention.`;
 
-  let trend: string;
-  if (delta > 0.4) trend = 'trending up';
-  else if (delta < -0.4) trend = 'trending down';
-  else trend = 'holding steady';
+  const top = mostFrequentTag(entries);
+  if (top && top.count >= 2) {
+    insight += ` "${top.tag}" keeps showing up.`;
+  }
 
-  const insight = `Averaging ${overallAvg.toFixed(1)} of 5 across ${chronological.length} dates, ${trend} lately.`;
-  return { points, insight };
+  return { entryCount, insight };
 }

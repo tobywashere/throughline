@@ -6,7 +6,6 @@ interface EntryRow {
   personId: string;
   occurredAt: number;
   location: string;
-  rating: number;
   significantMoments: string;
   feelingTags: string;
   activityTags: string;
@@ -30,13 +29,12 @@ export async function fetchAllEntries(): Promise<DateEntry[]> {
 export async function insertEntry(entry: DateEntry): Promise<void> {
   const db = await getDb();
   await db.runAsync(
-    `INSERT INTO date_entries (id, personId, occurredAt, location, rating, significantMoments, feelingTags, activityTags, createdAt)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    `INSERT INTO date_entries (id, personId, occurredAt, location, significantMoments, feelingTags, activityTags, createdAt)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
     entry.id,
     entry.personId,
     entry.occurredAt,
     entry.location,
-    entry.rating,
     entry.significantMoments,
     JSON.stringify(entry.feelingTags),
     JSON.stringify(entry.activityTags),
@@ -47,11 +45,10 @@ export async function insertEntry(entry: DateEntry): Promise<void> {
 export async function updateEntryRow(entry: DateEntry): Promise<void> {
   const db = await getDb();
   await db.runAsync(
-    `UPDATE date_entries SET occurredAt = ?, location = ?, rating = ?, significantMoments = ?, feelingTags = ?, activityTags = ?
+    `UPDATE date_entries SET occurredAt = ?, location = ?, significantMoments = ?, feelingTags = ?, activityTags = ?
      WHERE id = ?`,
     entry.occurredAt,
     entry.location,
-    entry.rating,
     entry.significantMoments,
     JSON.stringify(entry.feelingTags),
     JSON.stringify(entry.activityTags),

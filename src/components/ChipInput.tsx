@@ -4,10 +4,12 @@ import { colors, fonts, radii, spacing } from '../theme';
 
 type Variant = 'default' | 'green' | 'yellow';
 
-const VARIANT_STYLES: Record<Variant, { border: string; text: string; bg: string }> = {
+// Only rose and sage carry color meaning. "Yellow" flags stay neutral and
+// borrow the dashed motif (not-yet-resolved) instead of inventing a third hue.
+const VARIANT_STYLES: Record<Variant, { border: string; text: string; bg: string; dashed?: boolean }> = {
   default: { border: colors.ink, text: colors.ink, bg: 'transparent' },
   green: { border: colors.sage, text: colors.sage, bg: colors.sageFaint },
-  yellow: { border: colors.amber, text: colors.amber, bg: colors.amberFaint },
+  yellow: { border: colors.ink, text: colors.ink, bg: 'transparent', dashed: true },
 };
 
 export function ChipInput({
@@ -42,7 +44,11 @@ export function ChipInput({
         <Pressable
           key={value}
           onPress={() => remove(value)}
-          style={[styles.chip, { borderColor: style.border, backgroundColor: style.bg }]}
+          style={[
+            styles.chip,
+            { borderColor: style.border, backgroundColor: style.bg },
+            style.dashed && styles.chipDashed,
+          ]}
         >
           <Text style={[styles.chipText, { color: style.text }]}>{value}</Text>
           <Text style={[styles.chipText, { color: style.text, marginLeft: 4 }]}>×</Text>
@@ -75,6 +81,9 @@ const styles = StyleSheet.create({
   chipText: {
     fontFamily: fonts.sansMedium,
     fontSize: 12,
+  },
+  chipDashed: {
+    borderStyle: 'dashed',
   },
   chipInput: {
     minWidth: 90,

@@ -10,9 +10,12 @@ const LABELS: Record<PersonStatus, string> = {
 };
 
 export function StatusPill({ status }: { status: PersonStatus }) {
-  const color = status === 'dating' ? colors.rose : status === 'not-seeing' ? colors.inkFaint : colors.sage;
+  // Rose = pre-date, sage = dating — pipeline stage only, never a verdict.
+  // Prospect / stepped-away sit outside the pipeline: neutral and dashed.
+  const isNeutral = status === 'prospect' || status === 'not-seeing';
+  const color = status === 'pre-date' ? colors.rose : status === 'dating' ? colors.sage : colors.inkFaint;
   return (
-    <View style={[styles.pill, { borderColor: color }]}>
+    <View style={[styles.pill, { borderColor: color }, isNeutral && styles.pillDashed]}>
       <Text style={[styles.label, { color }]}>{LABELS[status]}</Text>
     </View>
   );
@@ -25,6 +28,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 3,
     alignSelf: 'flex-start',
+  },
+  pillDashed: {
+    borderStyle: 'dashed',
+    opacity: 0.7,
   },
   label: {
     fontFamily: fonts.sansMedium,

@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     borderWidth: 1.3,
     borderStyle: 'dashed',
     borderColor: colors.outlineDash,
-    borderRadius: 8,
+    borderRadius: radii.sm,
     padding: 10,
   },
   plusDot: {

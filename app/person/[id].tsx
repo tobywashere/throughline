@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { View, Text, Pressable, Alert, ScrollView, StyleSheet } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useShallow } from 'zustand/react/shallow';
@@ -6,7 +5,6 @@ import { DetailHeader } from '../../src/components/DetailHeader';
 import { StatusPill } from '../../src/components/StatusPill';
 import { NoteList } from '../../src/components/NoteList';
 import { EntryRow } from '../../src/components/EntryRow';
-import { StarRating } from '../../src/components/StarRating';
 import { useStore } from '../../src/store/useStore';
 import { colors, fonts, radii, spacing } from '../../src/theme';
 import { formatFullDate } from '../../src/utils/date';
@@ -19,11 +17,6 @@ export default function PersonDetailScreen() {
   const stepAway = useStore((s) => s.stepAway);
   const resume = useStore((s) => s.resume);
   const deletePerson = useStore((s) => s.deletePerson);
-
-  const avgRating = useMemo(() => {
-    if (entries.length === 0) return null;
-    return entries.reduce((sum, e) => sum + e.rating, 0) / entries.length;
-  }, [entries]);
 
   if (!person) {
     return (
@@ -53,11 +46,10 @@ export default function PersonDetailScreen() {
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.statusRow}>
           <StatusPill status={person.status} />
-          {avgRating !== null && (
-            <View style={styles.avgRow}>
-              <StarRating rating={Math.round(avgRating)} size={14} />
-              <Text style={styles.avgText}>{avgRating.toFixed(1)} avg</Text>
-            </View>
+          {entries.length > 0 && (
+            <Text style={styles.entryCountText}>
+              {entries.length} {entries.length === 1 ? 'date' : 'dates'} logged
+            </Text>
           )}
         </View>
 
@@ -97,11 +89,11 @@ export default function PersonDetailScreen() {
             )}
             {person.yellowFlags.length > 0 && (
               <View style={styles.flagRow}>
-                <Text style={[styles.flagLabel, { color: colors.amber }]}>Yellow flags</Text>
+                <Text style={[styles.flagLabel, { color: colors.inkFaint }]}>Yellow flags</Text>
                 <View style={styles.chipRow}>
                   {person.yellowFlags.map((f) => (
-                    <View key={f} style={[styles.chip, { borderColor: colors.amber, backgroundColor: colors.amberFaint }]}>
-                      <Text style={[styles.chipText, { color: colors.amber }]}>{f}</Text>
+                    <View key={f} style={[styles.chip, styles.chipDashed, { borderColor: colors.ink }]}>
+                      <Text style={[styles.chipText, { color: colors.ink }]}>{f}</Text>
                     </View>
                   ))}
                 </View>
@@ -134,8 +126,7 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.paper },
   content: { padding: spacing.lg, paddingBottom: 80 },
   statusRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: spacing.sm },
-  avgRow: { flexDirection: 'row', alignItems: 'center', gap: 6 },
-  avgText: { fontFamily: fonts.sans, fontSize: 12, color: colors.inkFaint },
+  entryCountText: { fontFamily: fonts.sans, fontSize: 12, color: colors.inkFaint },
   howMet: { fontFamily: fonts.sans, fontSize: 13.5, color: colors.inkDim, lineHeight: 19, marginBottom: spacing.md },
   actionsRow: { flexDirection: 'row', gap: spacing.sm, marginBottom: spacing.lg },
   primaryAction: {
@@ -158,6 +149,7 @@ const styles = StyleSheet.create({
   flagLabel: { fontFamily: fonts.serifItalic, fontStyle: 'italic', fontSize: 12 },
   chipRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 6 },
   chip: { borderWidth: 1.3, borderRadius: radii.pill, paddingHorizontal: 10, paddingVertical: 5 },
+  chipDashed: { borderStyle: 'dashed' },
   chipText: { fontFamily: fonts.sansMedium, fontSize: 11.5 },
   sectionLabel: {
     fontFamily: fonts.serifItalic,

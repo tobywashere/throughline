@@ -4,7 +4,7 @@ import { router } from 'expo-router';
 import { Screen } from '../../src/components/Screen';
 import { useStore } from '../../src/store/useStore';
 import { Avatar } from '../../src/components/Avatar';
-import { Sparkline } from '../../src/components/Sparkline';
+import { Thread } from '../../src/components/Thread';
 import { colors, fonts, radii, spacing } from '../../src/theme';
 import { computeJourneyInsight } from '../../src/utils/journey';
 import type { Person } from '../../src/types';
@@ -29,13 +29,13 @@ export default function HomeScreen() {
     <Screen title="Home">
       <Text style={styles.sectionLabel}>Pipeline</Text>
       <View style={styles.columns}>
-        <PipelineColumn label="Pre-date" people={preDate} onLongPress={onLongPressCard} />
-        <PipelineColumn label="Dating" people={dating} onLongPress={onLongPressCard} />
+        <PipelineColumn label="Pre-date" color={colors.rose} people={preDate} onLongPress={onLongPressCard} />
+        <PipelineColumn label="Dating" color={colors.sage} people={dating} onLongPress={onLongPressCard} />
       </View>
 
       <Text style={[styles.sectionLabel, { marginTop: spacing.xl }]}>Journey</Text>
       <View style={styles.journeyCard}>
-        <Sparkline points={journey.points} width={280} height={56} />
+        <Thread count={journey.entryCount} width={280} height={56} />
       </View>
       <Text style={styles.journeyInsight}>{journey.insight}</Text>
     </Screen>
@@ -44,16 +44,18 @@ export default function HomeScreen() {
 
 function PipelineColumn({
   label,
+  color,
   people,
   onLongPress,
 }: {
   label: string;
+  color: string;
   people: Person[];
   onLongPress: (p: Person) => void;
 }) {
   return (
     <View style={styles.column}>
-      <Text style={styles.columnLabel}>{label}</Text>
+      <Text style={[styles.columnLabel, { color }]}>{label}</Text>
       {people.length === 0 ? (
         <Text style={styles.emptyText}>Nobody here yet</Text>
       ) : (
@@ -89,7 +91,6 @@ const styles = StyleSheet.create({
     fontFamily: fonts.serifItalic,
     fontStyle: 'italic',
     fontSize: 11.5,
-    color: colors.inkFaint,
     marginBottom: spacing.sm,
   },
   card: {

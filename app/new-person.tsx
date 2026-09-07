@@ -8,7 +8,7 @@ import { ChipInput } from '../src/components/ChipInput';
 import { PillSelector } from '../src/components/PillSelector';
 import { NoteList } from '../src/components/NoteList';
 import { useStore } from '../src/store/useStore';
-import { colors, fonts, spacing } from '../src/theme';
+import { colors, fonts, radii, spacing } from '../src/theme';
 
 export default function NewPersonScreen() {
   const { id, prefillName } = useLocalSearchParams<{ id?: string; prefillName?: string }>();
@@ -82,7 +82,7 @@ export default function NewPersonScreen() {
         <ChipInput values={greenFlags} onChange={setGreenFlags} placeholder="Add a green flag" variant="green" />
       </Field>
 
-      <Field label="Yellow flags" color={colors.amber}>
+      <Field label="Yellow flags" color={colors.inkFaint}>
         <ChipInput values={yellowFlags} onChange={setYellowFlags} placeholder="Add a yellow flag" variant="yellow" />
       </Field>
 
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     borderWidth: 1.3,
     borderStyle: 'dashed',
     borderColor: colors.outlineDash,
-    borderRadius: 8,
+    borderRadius: radii.sm,
     padding: 10,
   },
   disabledText: { fontFamily: fonts.sans, fontSize: 12, color: colors.inkFaint, fontStyle: 'italic' },

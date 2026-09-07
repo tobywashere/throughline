@@ -18,7 +18,6 @@ export interface DateEntry {
   personId: string;
   occurredAt: number;
   location: string;
-  rating: number; // 1-5
   significantMoments: string;
   feelingTags: string[];
   activityTags: string[];

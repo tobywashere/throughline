@@ -41,7 +41,6 @@ async function migrate(db: SQLite.SQLiteDatabase) {
       personId TEXT NOT NULL,
       occurredAt INTEGER NOT NULL,
       location TEXT NOT NULL DEFAULT '',
-      rating INTEGER NOT NULL DEFAULT 0,
       significantMoments TEXT NOT NULL DEFAULT '',
       feelingTags TEXT NOT NULL DEFAULT '[]',
       activityTags TEXT NOT NULL DEFAULT '[]',
