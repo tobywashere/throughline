@@ -33,6 +33,13 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "f77e5e84-d49f-4c58-93bc-48ccfa3a4ca9"
+      }
+    },
+    "owner": "throughline"
   }
 }
