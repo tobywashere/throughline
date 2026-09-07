@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Throughline — Wireframes (iPhone 17 Pro)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#23241f;
+    --paper:#efe8d8;
+    --rose:#b25a68;
+    --sage:#5f6f4e;
+    --line:rgba(35,36,31,0.16);
+    --wf-fill:#e7e4da;
+    --wf-fill-dim:#efece5;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:56px 32px 96px;}
+  h1{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    font-size:clamp(30px,4vw,42px);
+    margin:0 0 10px;
+    letter-spacing:-0.01em;
+  }
+  .intro{font-size:15px;max-width:62ch;color:#4a4b41;margin:0;}
+  .intro .tag{font-family:'Fraunces',serif;font-style:italic;color:var(--rose);}
+
+  .group{margin-top:64px;}
+  .group-title{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-size:15px;
+    color:var(--rose);
+    margin-bottom:20px;
+    padding-bottom:10px;
+    border-bottom:1px solid var(--line);
+  }
+  .row{display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start;}
+
+  figure{margin:0;width:300px;}
+  figcaption{margin-top:16px;}
+  figcaption .cap-title{font-family:'Fraunces',serif;font-weight:500;font-size:15px;}
+  figcaption .cap-note{font-size:12.5px;color:#5c5d52;margin-top:4px;line-height:1.45;}
+
+  /* ---------- device frame ---------- */
+  .phone{
+    width:300px;height:652px; /* 402:874 pt ratio, iPhone 17 Pro */
+    border:1.5px solid var(--ink);
+    border-radius:44px;
+    background:#fff;
+    position:relative;
+    overflow:hidden;
+    box-shadow:0 2px 0 rgba(0,0,0,0.04);
+  }
+  .dyn-island{
+    position:absolute;top:10px;left:50%;transform:translateX(-50%);
+    width:92px;height:24px;background:var(--ink);border-radius:14px;z-index:6;
+  }
+  .home-indicator{
+    position:absolute;bottom:6px;left:50%;transform:translateX(-50%);
+    width:104px;height:4px;border-radius:2px;background:var(--ink);opacity:0.35;z-index:6;
+  }
+  .screen{
+    position:absolute;inset:0;display:flex;flex-direction:column;padding-top:44px;
+  }
+  .screen-header{
+    padding:0 18px 12px;display:flex;align-items:center;justify-content:space-between;
+    border-bottom:1px solid var(--line);
+  }
+  .screen-title{font-family:'Fraunces',serif;font-weight:500;font-size:17px;}
+  .hdr-action{font-size:12.5px;color:#8a8b80;}
+  .hdr-action.primary{color:var(--rose);font-weight:600;}
+  .content{flex:1;padding:14px 18px 0;overflow:hidden;position:relative;}
+
+  .section-label{font-family:'Fraunces',serif;font-style:italic;font-size:11.5px;color:var(--rose);margin:14px 0 8px;}
+  .section-label:first-child{margin-top:0;}
+
+  .wf-line{height:9px;border-radius:3px;background:var(--wf-fill);}
+  .wf-line.dim{background:var(--wf-fill-dim);}
+  .wf-outline{border:1.3px dashed #b7b4a8;border-radius:8px;background:#fbfaf7;}
+  .pill{border:1.3px solid var(--ink);border-radius:14px;opacity:0.7;}
+  .pill.filled{background:var(--ink);opacity:1;}
+  .pill.selected{border-color:var(--rose);background:rgba(178,90,104,0.08);}
+  .avatar{border-radius:50%;background:var(--wf-fill);border:1.2px solid #c9c6ba;}
+  .chevron{font-size:13px;color:#b7b4a8;font-family:Inter;}
+
+  /* ---------- tab bar ---------- */
+  .tabbar{
+    position:absolute;bottom:0;left:0;right:0;height:78px;
+    border-top:1px solid var(--line);background:#fff;
+    display:flex;padding-top:11px;z-index:4;
+  }
+  .tab-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;}
+  .tab-icon{width:19px;height:19px;border-radius:5px;border:1.4px solid var(--ink);opacity:0.32;}
+  .tab-item.active .tab-icon{opacity:1;background:var(--ink);}
+  .tab-label{font-size:8.5px;color:var(--ink);opacity:0.4;}
+  .tab-item.active .tab-label{opacity:1;font-weight:600;}
+  .fab{
+    position:absolute;bottom:38px;left:50%;transform:translateX(-50%);
+    width:52px;height:52px;border-radius:50%;background:var(--rose);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 3px 10px rgba(0,0,0,0.2);z-index:7;
+  }
+  .fab::before{content:'+';color:#fff;font-size:27px;line-height:1;font-family:Inter;}
+  .fab.close{background:var(--ink);}
+  .fab.close::before{content:'×';font-size:30px;}
+
+  /* ---------- callouts ---------- */
+  .callout{
+    position:absolute;border:1.3px dashed var(--rose);border-radius:9px;
+    padding:4px 7px;font-family:'Fraunces',serif;font-style:italic;font-size:8.5px;
+    color:var(--rose);background:rgba(178,90,104,0.06);line-height:1.3;z-index:5;
+    pointer-events:none;
+  }
+
+  /* ---------- overlay for + menu ---------- */
+  .overlay{position:absolute;inset:0;background:rgba(35,36,31,0.55);z-index:3;}
+  .menu-option{
+    position:absolute;left:50%;transform:translateX(-50%);
+    width:150px;height:38px;border-radius:19px;background:#fff;
+    display:flex;align-items:center;gap:10px;padding:0 14px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.18);z-index:6;
+  }
+  .menu-option .dot{width:16px;height:16px;border-radius:5px;background:var(--wf-fill);border:1.2px solid #c9c6ba;}
+  .menu-option span{font-size:12px;font-weight:500;}
+
+  @media (max-width:700px){
+    .wrap{padding:40px 20px 80px;}
+    .row{gap:28px;justify-content:center;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Wireframes, iPhone 17 Pro</h1>
+  <p class="intro">Low-fidelity structure for the eight core screens — sized to the iPhone 17 Pro's 402×874pt display. Boxes stand in for real copy and imagery; <span class="tag">dashed rose notes</span> call out places where the product's constraints shape the layout itself, not just the wording.</p>
+
+  <!-- ================= PRIMARY SCREENS ================= -->
+  <div class="group">
+    <div class="group-title">Primary screens — the four tabs</div>
+    <div class="row">
+
+      <!-- HOME -->
+      <figure>
+        <div class="phone">
+          <div class="dyn-island"></div>
+          <div class="screen">
+            <div class="screen-header"><div class="screen-title">Home</div></div>
+            <div class="content">
+              <div class="section-label">Pipeline</div>
+              <div style="display:flex;gap:10px;">
+                <div style="flex:1;">
+                  <div class="wf-line dim" style="width:52px;margin-bottom:6px;"></div>
+                  <div class="wf-outline" style="height:34px;margin-bottom:8px;"></div>
+                  <div class="wf-outline" style="height:34px;"></div>
+                </div>
+                <div style="flex:1;">
+                  <div class="wf-line dim" style="width:40px;margin-bottom:6px;"></div>
+                  <div class="wf-outline" style="height:34px;margin-bottom:8px;"></div>
+                  <div class="wf-outline" style="height:34px;margin-bottom:8px;"></div>
+                  <div class="wf-outline" style="height:34px;"></div>
+                </div>
+              </div>
+
+              <div class="section-label" style="margin-top:22px;">Journey</div>
+              <div class="wf-outline" style="height:64px;padding:10px;">
+                <svg width="100%" height="100%" viewBox="0 0 240 44" preserveAspectRatio="none">
+                  <polyline points="4,36 40,30 76,33 112,20 148,24 184,12 220,16" fill="none" stroke="var(--sage)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="wf-line" style="width:100%;margin-top:10px;"></div>
+              <div class="wf-line dim" style="width:70%;margin-top:6px;"></div>
+
+              <div class="callout" style="top:2px;right:0;width:88px;">two zones, kept apart — pipeline ≠ insight</div>
+            </div>
+            <div class="tabbar">
+              <div class="tab-item active"><div class="tab-icon"></div><div class="tab-label">Home</div></div>
+              <div class="tab-item"><div class="tab-icon"></div><div class="tab-label">People</div></div>
+              <div class="tab-item"><div class="tab-icon"></div><div class="tab-label">Dates</div></div>
+              <div class="tab-item"><div class="tab-icon"></div><div class="tab-label">Settings</div></div>
+            </div>
+            <div class="fab"></div>
+          </div>
+          <div class="home-indicator"></div>
+        </div>
+        <figcaption>
+          <div class="cap-title">Home</div>
+          <div class="cap-note">Pipeline (Pre-date / Dating) on top, Journey insights below — visually separate so one never reads as a score for the other.</div>
+        </figcaption>
+      </figure>
+
+      <!-- PEOPLE -->
+      <figure>
+        <div class="phone">
+          <div class="dyn-island"></div>
+          <div class="screen">
+            <div class="screen-header"><div class="screen-title">People</div></div>
+            <div class="content">
+              <div class="wf-outline" style="height:30px;border-radius:15px;margin-bottom:14px;"></div>
+
+              <div class="section-label">Dating</div>
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+                <div class="avatar" style="width:30px;height:30px;flex-shrink:0;"></div>
+                <div style="flex:1;"><div class="wf-line" style="width:80px;margin-bottom:5px;"></div><div class="wf-line dim" style="width:50px;"></div></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+                <div class="avatar" style="width:30px;height:30px;flex-shrink:0;"></div>
+                <div style="flex:1;"><div class="wf-line" style="width:100px;margin-bottom:5px;"></div><div class="wf-line dim" style="width:44px;"></div></div>
+              </div>
+
+              <div class="section-label">Prospects</div>
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+                <div class="avatar" style="width:30px;height:30px;flex-shrink:0;"></div>
+                <div style="flex:1;"><div class="wf-line" style="width:66px;margin-bottom:5px;"></div><div class="wf-line dim" style="width:56px;"></div></div>
+              </div>
+
+              <div class="section-label" style="opacity:0.6;">No longer seeing</div>
+              <div style="display:flex;align-items:center;gap:10px;opacity:0.45;">
+                <div class="avatar" style="width:30px;height:30px;flex-shrink:0;"></div>
+                <div style="flex:1;"><div class="wf-line" style="width:90px;margin-bottom:5px;"></div><div class="wf-line dim" style="width:40px;"></div></div>
+              </div>
+
+              <div class="callout" style="top:104px;left:0;width:96px;">pre-date + dating share one bucket here</div>
+            </div>
+            <div class="tabbar">
+              <div class="tab-item"><div class="tab-icon"></div><div class="tab-label">Home</div></div>
+              <div class="tab-item active"><div class="tab-icon"></div><div class="tab-label">People</div></div>
+              <div class="tab-item"><div class="tab-icon"></div><div class="tab-label">Dates</div></div>
+              <div class="tab-item"><div class="tab-icon"></div><div class="tab-label">Settings</div></div>
+            </div>
+            <div class="fab"></div>
+          </div>
+          <div class="home-indicator"></div>
+        </div>
+        <figcaption>
+          <div class="cap-title">People</div>
+          <div class="cap-note">Alphabetical within each bucket. Pre-date and Dating share one bucket here even though Home's kanban keeps them apart — this list is about who exists, not where they're at.</div>
+        </figcaption>
+      </figure>
+
+      <!-- DATES -->
+      <figure>
+        <div class="phone">
+          <div class="dyn-island"></div>
+          <div class="screen">
+            <div class="screen-header"><div class="screen-title">Dates</div></div>
+            <div class="content">
+              <div class="section-label">September</div>
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+                <div class="avatar" style="width:26px;height:26px;border-radius:7px;flex-shrink:0;"></div>
+                <div style="flex:1;"><div class="wf-line" style="width:96px;margin-bottom:5px;"></div><div class="wf-line dim" style="width:150px;"></div></div>
+                <div class="chevron">›</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+                <div class="avatar" style="width:26px;height:26px;border-radius:7px;flex-shrink:0;"></div>
+                <div style="flex:1;"><div class="wf-line" style="width:70px;margin-bottom:5px;"></div><div class="wf-line dim" style="width:170px;"></div></div>
+                <div class="chevron">›</div>
+              </div>
+
+              <div class="section-label">August</div>
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+                <div class="avatar" style="width:26px;height:26px;border-radius:7px;flex-shrink:0;"></div>
+                <div style="flex:1;"><div class="wf-line" style="width:110px;margin-bottom:5px;"></div><div class="wf-line dim" style="width:120px;"></div></div>
+                <div class="chevron">›</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+                <div class="avatar" style="width:26px;height:26px;border-radius:7px;flex-shrink:0;"></div>
+                <div style="flex:1;"><div class="wf-line" style="width:88px;margin-bottom:5px;"></div><div class="wf-line dim" style="width:140px;"></div></div>
+                <div class="chevron">›</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div class="avatar" style="width:26px;height:26px;border-radius:7px;flex-shrink:0;"></div>
+                <div style="flex:1;"><div class="wf-line" style="width:74px;margin-bottom:5px;"></div><div class="wf-line dim" style="width:100px;"></div></div>
+                <div class="chevron">›</div>
+              </div>
+            </div>
+            <div class="tabbar">
+              <div class="tab-item"><div class="tab-icon"></div><div class="tab-label">Home</div></div>
+              <div class="tab-item"><div class="tab-icon"></div><div class="tab-label">People</div></div>
+              <div class="tab-item active"><div class="tab-icon"></div><div class="tab-label">Dates</div></div>
+              <div class="tab-item"><div class="tab-icon"></div><div class="tab-label">Settings</div></div>
+            </div>
+            <div class="fab"></div>
+          </div>
+          <div class="home-indicator"></div>
+        </div>
+        <figcaption>
+          <div class="cap-title">Dates</div>
+          <div class="cap-note">Straight reverse-chronological list, grouped by month. No ratings surfaced here — just who, when, and a line of what was logged.</div>
+        </figcaption>
+      </figure>
+
+      <!-- SETTINGS -->
+      <figure>
+        <div class="phone">
+          <div class="dyn-island"></div>
+          <div class="screen">
+            <div class="screen-header"><div class="screen-title">Settings</div></div>
+            <div class="content">
+              <div style="display:flex;align-items:center;gap:12px;padding:6px 0 18px;border-bottom:1px solid var(--line);">
+                <div class="avatar" style="width:40px;height:40px;flex-shrink:0;"></div>
+                <div><div class="wf-line" style="width:100px;margin-bottom:6px;"></div><div class="wf-line dim" style="width:130px;"></div></div>
+              </div>
+
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid var(--line);"><div class="wf-line" style="width:90px;"></div><div class="chevron">›</div></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid var(--line);"><div class="wf-line" style="width:110px;"></div><div class="chevron">›</div></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid var(--line);"><div class="wf-line" style="width:120px;"></div><div class="chevron">›</div></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid var(--line);"><div class="wf-line" style="width:130px;"></div><div class="chevron">›</div></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;"><div class="wf-line" style="width:80px;"></div><div class="chevron">›</div></div>
+
+              <div class="callout" style="top:130px;right:0;width:90px;">export &amp; delete live here — full user control</div>
+            </div>
+            <div class="tabbar">
+              <div class="tab-item"><div class="tab-icon"></div><div class="tab-label">Home</div></div>
+              <div class="tab-item"><div class="tab-icon"></div><div class="tab-label">People</div></div>
+              <div class="tab-item"><div class="tab-icon"></div><div class="tab-label">Dates</div></div>
+              <div class="tab-item active"><div class="tab-icon"></div><div class="tab-label">Settings</div></div>
+            </div>
+            <div class="fab"></div>
+          </div>
+          <div class="home-indicator"></div>
+        </div>
+        <figcaption>
+          <div class="cap-title">Settings</div>
+          <div class="cap-note">Account, notifications, privacy &amp; data, export, about, sign out. Nothing product-specific to decide here yet.</div>
+        </figcaption>
+      </figure>
+
+    </div>
+  </div>
+
+  <!-- ================= ADD MENU ================= -->
+  <div class="group">
+    <div class="group-title">The center + button</div>
+    <div class="row">
+      <figure>
+        <div class="phone">
+          <div class="dyn-island"></div>
+          <div class="screen">
+            <div class="screen-header"><div class="screen-title">Home</div></div>
+            <div class="content">
+              <div class="section-label">Pipeline</div>
+              <div style="display:flex;gap:10px;opacity:0.5;">
+                <div style="flex:1;"><div class="wf-outline" style="height:34px;margin-bottom:8px;"></div><div class="wf-outline" style="height:34px;"></div></div>
+                <div style="flex:1;"><div class="wf-outline" style="height:34px;margin-bottom:8px;"></div><div class="wf-outline" style="height:34px;"></div></div>
+              </div>
+            </div>
+            <div class="overlay"></div>
+            <div class="menu-option" style="bottom:212px;"><div class="dot"></div><span>New Note</span></div>
+            <div class="menu-option" style="bottom:164px;"><div class="dot"></div><span>New Person</span></div>
+            <div class="menu-option" style="bottom:116px;"><div class="dot"></div><span>New Date</span></div>
+            <div class="tabbar"></div>
+            <div class="fab close"></div>
+          </div>
+          <div class="home-indicator"></div>
+        </div>
+        <figcaption>
+          <div class="cap-title">Add menu, expanded</div>
+          <div class="cap-note">Tapping the center button dims the current screen and raises three options — Date, Person, Note — rather than dropping straight into a form. The tab bar recedes so the choice reads as a brief detour, not a new section.</div>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <!-- ================= ENTRY SCREENS ================= -->
+  <div class="group">
+    <div class="group-title">Entry screens</div>
+    <div class="row">
+
+      <!-- NEW DATE -->
+      <figure>
+        <div class="phone">
+          <div class="dyn-island"></div>
+          <div class="screen">
+            <div class="screen-header">
+              <div class="hdr-action">Cancel</div>
+              <div class="screen-title">New Date</div>
+              <div class="hdr-action primary">Save</div>
+            </div>
+            <div class="content">
+              <div class="wf-line dim" style="width:34px;margin-bottom:6px;"></div>
+              <div class="wf-outline" style="height:32px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;margin-bottom:12px;"><div class="wf-line" style="width:90px;"></div><div class="chevron">›</div></div>
+
+              <div class="wf-line dim" style="width:40px;margin-bottom:6px;"></div>
+              <div class="wf-outline" style="height:32px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;margin-bottom:14px;"><div class="wf-line" style="width:110px;"></div><div class="chevron">›</div></div>
+
+              <div class="section-label">How it felt</div>
+              <div style="position:relative;">
+                <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><div class="wf-line dim" style="width:56px;"></div></div>
+                <div class="wf-outline" style="height:10px;border-radius:5px;margin-bottom:12px;position:relative;"><div style="position:absolute;left:60%;top:-3px;width:14px;height:14px;border-radius:50%;background:var(--rose);"></div></div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><div class="wf-line dim" style="width:50px;"></div></div>
+                <div class="wf-outline" style="height:10px;border-radius:5px;margin-bottom:12px;position:relative;"><div style="position:absolute;left:35%;top:-3px;width:14px;height:14px;border-radius:50%;background:var(--rose);"></div></div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><div class="wf-line dim" style="width:70px;"></div></div>
+                <div class="wf-outline" style="height:10px;border-radius:5px;margin-bottom:12px;position:relative;"><div style="position:absolute;left:70%;top:-3px;width:14px;height:14px;border-radius:50%;background:var(--rose);"></div></div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><div class="wf-line dim" style="width:52px;"></div></div>
+                <div class="wf-outline" style="height:10px;border-radius:5px;position:relative;"><div style="position:absolute;left:45%;top:-3px;width:14px;height:14px;border-radius:50%;background:var(--rose);"></div></div>
+                <div class="callout" style="top:0;right:0;width:100px;">attraction · validation · compatibility · capacity — four rows, never one score</div>
+              </div>
+
+              <div class="section-label" style="margin-top:16px;">What did this teach me?</div>
+              <div class="wf-outline" style="height:66px;"></div>
+            </div>
+            <div class="home-indicator"></div>
+          </div>
+        </div>
+        <figcaption>
+          <div class="cap-title">New Date</div>
+          <div class="cap-note">The four signals get their own row each — no combined score, ever. The Learning field is the largest text field on the screen, on purpose.</div>
+        </figcaption>
+      </figure>
+
+      <!-- NEW PERSON -->
+      <figure>
+        <div class="phone">
+          <div class="dyn-island"></div>
+          <div class="screen">
+            <div class="screen-header">
+              <div class="hdr-action">Cancel</div>
+              <div class="screen-title">New Person</div>
+              <div class="hdr-action primary">Save</div>
+            </div>
+            <div class="content">
+              <div class="wf-line dim" style="width:36px;margin-bottom:6px;"></div>
+              <div class="wf-outline" style="height:32px;margin-bottom:14px;"></div>
+
+              <div class="wf-line dim" style="width:76px;margin-bottom:6px;"></div>
+              <div class="wf-outline" style="height:48px;margin-bottom:14px;"></div>
+
+              <div class="wf-line dim" style="width:44px;margin-bottom:8px;"></div>
+              <div style="display:flex;gap:8px;margin-bottom:16px;">
+                <div class="pill selected" style="padding:6px 12px;font-size:11px;">Prospect</div>
+                <div class="pill" style="padding:6px 12px;font-size:11px;opacity:0.5;">Pre-date</div>
+                <div class="pill" style="padding:6px 12px;font-size:11px;opacity:0.5;">Dating</div>
+              </div>
+
+              <div class="section-label">Notes</div>
+              <div class="wf-outline" style="height:90px;"></div>
+              <div style="font-family:'Fraunces',serif;font-style:italic;font-size:9px;color:#8a8b80;margin-top:6px;">this is where the timestamped log starts</div>
+            </div>
+            <div class="home-indicator"></div>
+          </div>
+        </div>
+        <figcaption>
+          <div class="cap-title">New Person</div>
+          <div class="cap-note">Status defaults to Prospect — the lightest commitment. A person can sit here indefinitely with notes and no pipeline status at all.</div>
+        </figcaption>
+      </figure>
+
+      <!-- NEW NOTE -->
+      <figure>
+        <div class="phone">
+          <div class="dyn-island"></div>
+          <div class="screen">
+            <div class="screen-header">
+              <div class="hdr-action">Cancel</div>
+              <div class="screen-title">New Note</div>
+              <div class="hdr-action primary">Save</div>
+            </div>
+            <div class="content">
+              <div class="wf-line dim" style="width:60px;margin-bottom:8px;"></div>
+              <div style="display:flex;gap:8px;margin-bottom:14px;">
+                <div class="pill selected" style="padding:6px 14px;font-size:11px;">Person</div>
+                <div class="pill" style="padding:6px 14px;font-size:11px;opacity:0.5;">Date entry</div>
+              </div>
+
+              <div class="wf-outline" style="height:32px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;margin-bottom:16px;"><div class="wf-line" style="width:96px;"></div><div class="chevron">›</div></div>
+
+              <div class="wf-outline" style="height:120px;"></div>
+              <div style="font-family:'Fraunces',serif;font-style:italic;font-size:9px;color:#8a8b80;margin-top:6px;">added just now</div>
+
+              <div class="callout" style="top:52px;right:0;width:96px;">appendable any time — never edits the original entry</div>
+            </div>
+            <div class="home-indicator"></div>
+          </div>
+        </div>
+        <figcaption>
+          <div class="cap-title">New Note</div>
+          <div class="cap-note">Attaches to either a person or a specific date entry. Quick and freeform by design — this is not a second reflection form competing with the Entry's Learning field.</div>
+        </figcaption>
+      </figure>
+
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
