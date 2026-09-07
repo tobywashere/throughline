@@ -11,12 +11,14 @@
   :root{
     --ink:#23241f;
     --paper:#efe8d8;
+    --paper-card:#f8f3e6;
     --rose:#b25a68;
     --sage:#5f6f4e;
     --line:rgba(35,36,31,0.16);
+    --muted:#5c5d52;
+    --body:#4a4b41;
     --wf-fill:#e7e4da;
     --wf-fill-dim:#efece5;
-    --amber:#b98d3e;
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
@@ -52,17 +54,16 @@
   figure{margin:0;width:300px;}
   figcaption{margin-top:16px;}
   figcaption .cap-title{font-family:'Fraunces',serif;font-weight:500;font-size:15px;}
-  figcaption .cap-note{font-size:12.5px;color:#5c5d52;margin-top:4px;line-height:1.45;}
+  figcaption .cap-note{font-size:12.5px;color:var(--muted);margin-top:4px;line-height:1.45;}
 
   /* ---------- device frame ---------- */
   .phone{
     width:300px;height:652px; /* 402:874 pt ratio, iPhone 17 Pro */
     border:1.5px solid var(--ink);
     border-radius:44px;
-    background:#fff;
+    background:var(--paper-card);
     position:relative;
     overflow:hidden;
-    box-shadow:0 2px 0 rgba(0,0,0,0.04);
   }
   .dyn-island{
     position:absolute;top:10px;left:50%;transform:translateX(-50%);
@@ -80,37 +81,40 @@
     border-bottom:1px solid var(--line);
   }
   .screen-title{font-family:'Fraunces',serif;font-weight:500;font-size:17px;}
-  .hdr-action{font-size:12.5px;color:#8a8b80;}
-  .hdr-action.primary{color:var(--rose);font-weight:600;}
+  .hdr-action{font-size:12.5px;color:var(--muted);}
+  .hdr-action.primary{color:var(--ink);font-weight:600;}
   .content{flex:1;padding:14px 18px 0;overflow:hidden;position:relative;}
 
   .section-label{font-family:'Fraunces',serif;font-style:italic;font-size:11.5px;color:var(--rose);margin:14px 0 8px;}
   .section-label:first-child{margin-top:0;}
+  .stage-dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:6px;vertical-align:middle;}
+  .stage-dot.pre{background:var(--rose);}
+  .stage-dot.dating{background:var(--sage);}
+  .stage-dot.prospect{border:1.2px dashed var(--ink);opacity:0.5;}
 
   .wf-line{height:9px;border-radius:3px;background:var(--wf-fill);}
   .wf-line.dim{background:var(--wf-fill-dim);}
-  .wf-outline{border:1.3px dashed #b7b4a8;border-radius:8px;background:#fbfaf7;}
-  .pill{border:1.3px solid var(--ink);border-radius:14px;opacity:0.7;}
+  .wf-outline{border:1.3px dashed var(--line);border-radius:4px;background:var(--paper);}
+  .pill{border:1.3px solid var(--ink);border-radius:4px;opacity:0.65;}
   .pill.filled{background:var(--ink);opacity:1;}
-  .pill.selected{border-color:var(--rose);background:rgba(178,90,104,0.08);}
-  .avatar{border-radius:50%;background:var(--wf-fill);border:1.2px solid #c9c6ba;}
-  .chevron{font-size:13px;color:#b7b4a8;font-family:Inter;}
+  .pill.selected{opacity:1;background:var(--ink);color:var(--paper-card);}
+  .avatar{border-radius:50%;background:var(--wf-fill);border:1.2px solid var(--line);}
+  .chevron{font-size:13px;color:var(--muted);font-family:Inter;opacity:0.6;}
 
-  .chip{display:inline-flex;align-items:center;border:1.3px solid var(--ink);border-radius:12px;padding:4px 9px;font-size:10px;opacity:0.7;margin:0 6px 6px 0;white-space:nowrap;}
-  .chip.green{border-color:var(--sage);color:var(--sage);background:rgba(95,111,78,0.08);opacity:1;}
-  .chip.yellow{border-color:var(--amber);color:var(--amber);background:rgba(185,141,62,0.09);opacity:1;}
+  .chip{display:inline-flex;align-items:center;border:1.3px solid var(--ink);border-radius:4px;padding:4px 9px;font-size:10px;opacity:0.75;margin:0 6px 6px 0;white-space:nowrap;}
   .chip.add{border-style:dashed;opacity:0.5;padding:4px 8px;}
 
-  .stars{font-size:21px;letter-spacing:3px;color:var(--rose);line-height:1;}
-  .stars .empty{color:#d8d4c8;}
+  .rating-dots{display:flex;gap:5px;}
+  .rating-dots .rd{width:11px;height:11px;border-radius:50%;background:var(--ink);}
+  .rating-dots .rd.empty{background:none;border:1.3px dashed var(--ink);opacity:0.4;}
 
-  .add-row{display:flex;align-items:center;gap:8px;border:1.3px dashed #b7b4a8;border-radius:8px;padding:9px 10px;color:#8a8b80;font-size:11px;}
-  .add-row .plus-dot{width:15px;height:15px;border-radius:50%;border:1.3px solid #b7b4a8;display:flex;align-items:center;justify-content:center;font-size:10px;line-height:1;flex-shrink:0;}
+  .add-row{display:flex;align-items:center;gap:8px;border:1.3px dashed var(--line);border-radius:4px;padding:9px 10px;color:var(--muted);font-size:11px;}
+  .add-row .plus-dot{width:15px;height:15px;border-radius:50%;border:1.3px solid var(--ink);opacity:0.5;display:flex;align-items:center;justify-content:center;font-size:10px;line-height:1;flex-shrink:0;}
 
   /* ---------- tab bar ---------- */
   .tabbar{
     position:absolute;bottom:0;left:0;right:0;height:78px;
-    border-top:1px solid var(--line);background:#fff;
+    border-top:1px solid var(--line);background:var(--paper-card);
     display:flex;padding-top:11px;z-index:4;
   }
   .tab-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;}
@@ -120,31 +124,22 @@
   .tab-item.active .tab-label{opacity:1;font-weight:600;}
   .fab{
     position:absolute;bottom:38px;left:50%;transform:translateX(-50%);
-    width:52px;height:52px;border-radius:50%;background:var(--rose);
-    display:flex;align-items:center;justify-content:center;
-    box-shadow:0 3px 10px rgba(0,0,0,0.2);z-index:7;
+    width:52px;height:52px;border-radius:50%;background:var(--paper-card);
+    border:1.5px solid var(--ink);
+    display:flex;align-items:center;justify-content:center;z-index:7;
   }
-  .fab::before{content:'+';color:#fff;font-size:27px;line-height:1;font-family:Inter;}
-  .fab.close{background:var(--ink);}
+  .fab::before{content:'+';color:var(--ink);font-size:27px;line-height:1;font-family:Inter;}
   .fab.close::before{content:'×';font-size:30px;}
-
-  /* ---------- callouts ---------- */
-  .callout{
-    position:absolute;border:1.3px dashed var(--rose);border-radius:9px;
-    padding:4px 7px;font-family:'Fraunces',serif;font-style:italic;font-size:8.5px;
-    color:var(--rose);background:rgba(178,90,104,0.06);line-height:1.3;z-index:5;
-    pointer-events:none;
-  }
 
   /* ---------- overlay for + menu ---------- */
   .overlay{position:absolute;inset:0;background:rgba(35,36,31,0.55);z-index:3;}
   .menu-option{
     position:absolute;left:50%;transform:translateX(-50%);
-    width:150px;height:38px;border-radius:19px;background:#fff;
-    display:flex;align-items:center;gap:10px;padding:0 14px;
-    box-shadow:0 4px 12px rgba(0,0,0,0.18);z-index:6;
+    width:150px;height:38px;border-radius:4px;background:var(--paper-card);
+    border:1.3px solid var(--ink);
+    display:flex;align-items:center;gap:10px;padding:0 14px;z-index:6;
   }
-  .menu-option .dot{width:16px;height:16px;border-radius:5px;background:var(--wf-fill);border:1.2px solid #c9c6ba;}
+  .menu-option .dot{width:16px;height:16px;border-radius:5px;background:var(--wf-fill);border:1.2px solid var(--line);}
   .menu-option span{font-size:12px;font-weight:500;}
 
   @media (max-width:700px){
@@ -157,7 +152,7 @@
 <div class="wrap">
 
   <h1>Wireframes, iPhone 17 Pro</h1>
-  <p class="intro">Low-fidelity structure for the eight core screens — sized to the iPhone 17 Pro's 402×874pt display. Boxes stand in for real copy and imagery; <span class="tag">dashed rose notes</span> call out places where the product's constraints shape the layout itself, not just the wording.</p>
+  <p class="intro">Low-fidelity structure for the eight core screens — sized to the iPhone 17 Pro's 402×874pt display, styled to the <span class="tag">Throughline brand kit</span>: paper and ink surfaces, rose for pre-date, sage for dating, and the dashed/solid dot motif standing in for status everywhere a color-coded badge might otherwise creep in.</p>
 
   <!-- ================= PRIMARY SCREENS ================= -->
   <div class="group">
@@ -172,30 +167,33 @@
             <div class="screen-header"><div class="screen-title">Home</div></div>
             <div class="content">
               <div class="section-label">Pipeline</div>
-              <div style="display:flex;gap:10px;">
-                <div style="flex:1;">
-                  <div class="wf-line dim" style="width:52px;margin-bottom:6px;"></div>
-                  <div class="wf-outline" style="height:34px;margin-bottom:8px;"></div>
-                  <div class="wf-outline" style="height:34px;"></div>
+              <div style="display:flex;gap:6px;">
+                <div style="flex:1;min-width:0;">
+                  <div class="wf-line dim" style="width:100%;max-width:44px;margin-bottom:6px;"></div>
+                  <div class="wf-outline" style="height:26px;margin-bottom:6px;"></div>
+                  <div class="wf-outline" style="height:26px;"></div>
                 </div>
-                <div style="flex:1;">
-                  <div class="wf-line dim" style="width:40px;margin-bottom:6px;"></div>
-                  <div class="wf-outline" style="height:34px;margin-bottom:8px;"></div>
-                  <div class="wf-outline" style="height:34px;margin-bottom:8px;"></div>
-                  <div class="wf-outline" style="height:34px;"></div>
+                <div style="flex:1;min-width:0;">
+                  <div class="wf-line dim" style="width:100%;max-width:26px;margin-bottom:6px;"></div>
+                  <div class="wf-outline" style="height:26px;margin-bottom:6px;"></div>
+                  <div class="wf-outline" style="height:26px;margin-bottom:6px;"></div>
+                  <div class="wf-outline" style="height:26px;"></div>
+                </div>
+                <div style="flex:1;min-width:0;">
+                  <div class="wf-line dim" style="width:100%;max-width:26px;margin-bottom:6px;"></div>
+                  <div class="wf-outline" style="height:26px;"></div>
+                </div>
+                <div style="flex:1;min-width:0;">
+                  <div class="wf-line dim" style="width:100%;max-width:30px;margin-bottom:6px;"></div>
+                  <div class="wf-outline" style="height:26px;"></div>
                 </div>
               </div>
+              <div style="font-family:'Fraunces',serif;font-style:italic;font-size:8.5px;color:var(--muted);margin-top:8px;">columns: Pre-date · 1st date · 2nd date · 3rd+ date</div>
 
-              <div class="section-label" style="margin-top:22px;">Journey</div>
-              <div class="wf-outline" style="height:64px;padding:10px;">
-                <svg width="100%" height="100%" viewBox="0 0 240 44" preserveAspectRatio="none">
-                  <polyline points="4,36 40,30 76,33 112,20 148,24 184,12 220,16" fill="none" stroke="var(--sage)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+              <div class="section-label" style="margin-top:22px;opacity:0.5;">Journey</div>
+              <div class="wf-outline" style="height:56px;display:flex;align-items:center;justify-content:center;opacity:0.5;">
+                <div style="font-family:'Fraunces',serif;font-style:italic;font-size:10px;color:var(--muted);">on hold for now</div>
               </div>
-              <div class="wf-line" style="width:100%;margin-top:10px;"></div>
-              <div class="wf-line dim" style="width:70%;margin-top:6px;"></div>
-
-              <div class="callout" style="top:2px;right:0;width:88px;">two zones, kept apart — pipeline ≠ insight</div>
             </div>
             <div class="tabbar">
               <div class="tab-item active"><div class="tab-icon"></div><div class="tab-label">Home</div></div>
@@ -209,7 +207,7 @@
         </div>
         <figcaption>
           <div class="cap-title">Home</div>
-          <div class="cap-note">Pipeline (Pre-date / Dating) on top, Journey insights below — visually separate so one never reads as a score for the other.</div>
+          <div class="cap-note">Pipeline now runs Pre-date → 1st date → 2nd date → 3rd+ date — a progression of contact, not a score. Journey is still in the IA but paused for now, shown as an empty placeholder rather than removed outright.</div>
         </figcaption>
       </figure>
 
@@ -222,17 +220,23 @@
             <div class="content">
               <div class="wf-outline" style="height:30px;border-radius:15px;margin-bottom:14px;"></div>
 
-              <div class="section-label">Dating</div>
+              <div class="section-label"><span class="stage-dot dating"></span>Dating</div>
               <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
                 <div class="avatar" style="width:30px;height:30px;flex-shrink:0;"></div>
                 <div style="flex:1;"><div class="wf-line" style="width:80px;margin-bottom:5px;"></div><div class="wf-line dim" style="width:50px;"></div></div>
               </div>
-              <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
                 <div class="avatar" style="width:30px;height:30px;flex-shrink:0;"></div>
                 <div style="flex:1;"><div class="wf-line" style="width:100px;margin-bottom:5px;"></div><div class="wf-line dim" style="width:44px;"></div></div>
               </div>
 
-              <div class="section-label">Prospects</div>
+              <div class="section-label"><span class="stage-dot pre"></span>Pre-date</div>
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+                <div class="avatar" style="width:30px;height:30px;flex-shrink:0;"></div>
+                <div style="flex:1;"><div class="wf-line" style="width:74px;margin-bottom:5px;"></div><div class="wf-line dim" style="width:60px;"></div></div>
+              </div>
+
+              <div class="section-label"><span class="stage-dot prospect"></span>Prospects</div>
               <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
                 <div class="avatar" style="width:30px;height:30px;flex-shrink:0;"></div>
                 <div style="flex:1;"><div class="wf-line" style="width:66px;margin-bottom:5px;"></div><div class="wf-line dim" style="width:56px;"></div></div>
@@ -244,7 +248,6 @@
                 <div style="flex:1;"><div class="wf-line" style="width:90px;margin-bottom:5px;"></div><div class="wf-line dim" style="width:40px;"></div></div>
               </div>
 
-              <div class="callout" style="top:104px;left:0;width:96px;">pre-date + dating share one bucket here</div>
             </div>
             <div class="tabbar">
               <div class="tab-item"><div class="tab-icon"></div><div class="tab-label">Home</div></div>
@@ -258,7 +261,7 @@
         </div>
         <figcaption>
           <div class="cap-title">People</div>
-          <div class="cap-note">Alphabetical within each bucket. Pre-date and Dating share one bucket here even though Home's kanban keeps them apart — this list is about who exists, not where they're at.</div>
+          <div class="cap-note">Dating (anyone with 1+ logged date) at top, Pre-date (actively planning, nothing logged yet) below it, Prospect (everyone else) at the bottom as the catch-all. No longer seeing stays a quiet, muted strip beneath all three.</div>
         </figcaption>
       </figure>
 
@@ -272,29 +275,49 @@
               <div class="section-label">September</div>
               <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
                 <div class="avatar" style="width:26px;height:26px;border-radius:7px;flex-shrink:0;"></div>
-                <div style="flex:1;"><div class="wf-line" style="width:96px;margin-bottom:5px;"></div><div class="wf-line dim" style="width:150px;"></div></div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:11px;font-weight:500;margin-bottom:4px;">Jeannette <span style="color:var(--muted);font-weight:400;">· 4th date</span></div>
+                  <div class="wf-line dim" style="width:150px;"></div>
+                </div>
+                <div style="font-size:10px;color:var(--muted);flex-shrink:0;">9/6</div>
                 <div class="chevron">›</div>
               </div>
               <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
                 <div class="avatar" style="width:26px;height:26px;border-radius:7px;flex-shrink:0;"></div>
-                <div style="flex:1;"><div class="wf-line" style="width:70px;margin-bottom:5px;"></div><div class="wf-line dim" style="width:170px;"></div></div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:11px;font-weight:500;margin-bottom:4px;">Teal <span style="color:var(--muted);font-weight:400;">· 1st date</span></div>
+                  <div class="wf-line dim" style="width:170px;"></div>
+                </div>
+                <div style="font-size:10px;color:var(--muted);flex-shrink:0;">9/7</div>
                 <div class="chevron">›</div>
               </div>
 
               <div class="section-label">August</div>
               <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
                 <div class="avatar" style="width:26px;height:26px;border-radius:7px;flex-shrink:0;"></div>
-                <div style="flex:1;"><div class="wf-line" style="width:110px;margin-bottom:5px;"></div><div class="wf-line dim" style="width:120px;"></div></div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:11px;font-weight:500;margin-bottom:4px;">Morgan <span style="color:var(--muted);font-weight:400;">· 2nd date</span></div>
+                  <div class="wf-line dim" style="width:120px;"></div>
+                </div>
+                <div style="font-size:10px;color:var(--muted);flex-shrink:0;">8/22</div>
                 <div class="chevron">›</div>
               </div>
               <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
                 <div class="avatar" style="width:26px;height:26px;border-radius:7px;flex-shrink:0;"></div>
-                <div style="flex:1;"><div class="wf-line" style="width:88px;margin-bottom:5px;"></div><div class="wf-line dim" style="width:140px;"></div></div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:11px;font-weight:500;margin-bottom:4px;">Priya <span style="color:var(--muted);font-weight:400;">· 6th date</span></div>
+                  <div class="wf-line dim" style="width:140px;"></div>
+                </div>
+                <div style="font-size:10px;color:var(--muted);flex-shrink:0;">8/14</div>
                 <div class="chevron">›</div>
               </div>
               <div style="display:flex;align-items:center;gap:10px;">
                 <div class="avatar" style="width:26px;height:26px;border-radius:7px;flex-shrink:0;"></div>
-                <div style="flex:1;"><div class="wf-line" style="width:74px;margin-bottom:5px;"></div><div class="wf-line dim" style="width:100px;"></div></div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:11px;font-weight:500;margin-bottom:4px;">Sam <span style="color:var(--muted);font-weight:400;">· 1st date</span></div>
+                  <div class="wf-line dim" style="width:100px;"></div>
+                </div>
+                <div style="font-size:10px;color:var(--muted);flex-shrink:0;">8/3</div>
                 <div class="chevron">›</div>
               </div>
             </div>
@@ -310,7 +333,7 @@
         </div>
         <figcaption>
           <div class="cap-title">Dates</div>
-          <div class="cap-note">Straight reverse-chronological list, grouped by month. No ratings surfaced here — just who, when, and a line of what was logged.</div>
+          <div class="cap-note">Each row now carries which date number this was for that person — "Jeannette · 4th date," "Teal · 1st date" — alongside the calendar date, grouped by month.</div>
         </figcaption>
       </figure>
 
@@ -332,7 +355,6 @@
               <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid var(--line);"><div class="wf-line" style="width:130px;"></div><div class="chevron">›</div></div>
               <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;"><div class="wf-line" style="width:80px;"></div><div class="chevron">›</div></div>
 
-              <div class="callout" style="top:130px;right:0;width:90px;">export &amp; delete live here — full user control</div>
             </div>
             <div class="tabbar">
               <div class="tab-item"><div class="tab-icon"></div><div class="tab-label">Home</div></div>
@@ -409,7 +431,9 @@
               <div class="wf-outline" style="height:32px;display:flex;align-items:center;padding:0 10px;margin-bottom:12px;"><div class="wf-line dim" style="width:100px;"></div></div>
 
               <div class="wf-line dim" style="width:70px;margin-bottom:6px;"></div>
-              <div class="stars" style="margin-bottom:12px;">★★★★<span class="empty">★</span></div>
+              <div class="rating-dots" style="margin-bottom:12px;">
+                <div class="rd"></div><div class="rd"></div><div class="rd"></div><div class="rd"></div><div class="rd empty"></div>
+              </div>
 
               <div class="section-label">Significant moments</div>
               <div class="wf-outline" style="height:52px;margin-bottom:12px;"></div>
@@ -426,9 +450,8 @@
 
               <div class="section-label">Notes</div>
               <div class="add-row"><div class="plus-dot">+</div><span>Add a note</span></div>
-              <div style="font-family:'Fraunces',serif;font-style:italic;font-size:9px;color:#8a8b80;margin-top:6px;">available once this date is saved</div>
+              <div style="font-family:'Fraunces',serif;font-style:italic;font-size:9px;color:var(--muted);margin-top:6px;">available once this date is saved</div>
 
-              <div class="callout" style="top:0;right:0;width:78px;">rating reflects the date, not the person</div>
             </div>
             <div class="home-indicator"></div>
           </div>
@@ -458,23 +481,23 @@
 
               <div class="wf-line dim" style="width:44px;margin-bottom:8px;"></div>
               <div style="display:flex;gap:8px;margin-bottom:16px;">
-                <div class="pill selected" style="padding:6px 12px;font-size:11px;">Prospect</div>
-                <div class="pill" style="padding:6px 12px;font-size:11px;opacity:0.5;">Pre-date</div>
+                <div class="pill selected" style="padding:6px 12px;font-size:11px;"><span class="stage-dot prospect" style="border-color:var(--paper-card);opacity:0.7;"></span>Prospect</div>
+                <div class="pill" style="padding:6px 12px;font-size:11px;opacity:0.5;"><span class="stage-dot pre"></span>Pre-date</div>
               </div>
 
-              <div class="section-label" style="color:var(--sage);">Green flags</div>
+              <div class="section-label">Green flags</div>
               <div style="margin-bottom:10px;">
-                <span class="chip green">Great listener</span><span class="chip green">Followed up</span><span class="chip add">+</span>
+                <span class="chip">Great listener</span><span class="chip">Followed up</span><span class="chip add">+</span>
               </div>
 
-              <div class="section-label" style="color:var(--amber);">Yellow flags</div>
+              <div class="section-label">Yellow flags</div>
               <div style="margin-bottom:14px;">
-                <span class="chip yellow">Vague on plans</span><span class="chip add">+</span>
+                <span class="chip">Vague on plans</span><span class="chip add">+</span>
               </div>
 
               <div class="section-label">Notes</div>
               <div class="add-row"><div class="plus-dot">+</div><span>Add a note</span></div>
-              <div style="font-family:'Fraunces',serif;font-style:italic;font-size:9px;color:#8a8b80;margin-top:6px;">this is where the timestamped log starts</div>
+              <div style="font-family:'Fraunces',serif;font-style:italic;font-size:9px;color:var(--muted);margin-top:6px;">this is where the timestamped log starts</div>
             </div>
             <div class="home-indicator"></div>
           </div>
@@ -505,7 +528,7 @@
               <div class="wf-outline" style="height:32px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;margin-bottom:16px;"><div class="wf-line" style="width:96px;"></div><div class="chevron">›</div></div>
 
               <div class="wf-outline" style="height:140px;"></div>
-              <div style="font-family:'Fraunces',serif;font-style:italic;font-size:9px;color:#8a8b80;margin-top:6px;">added just now</div>
+              <div style="font-family:'Fraunces',serif;font-style:italic;font-size:9px;color:var(--muted);margin-top:6px;">added just now</div>
             </div>
             <div class="home-indicator"></div>
           </div>
