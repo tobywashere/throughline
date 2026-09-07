@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Throughline — Brand Kit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#23241f;
+    --paper:#efe8d8;
+    --paper-card:#f8f3e6;
+    --rose:#b25a68;
+    --sage:#5f6f4e;
+    --line:rgba(35,36,31,0.16);
+    --muted:#5c5d52;
+    --body:#4a4b41;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.5;
+  }
+  .wrap{max-width:980px;margin:0 auto;padding:0 32px;}
+  h1,h2,h3{font-family:'Fraunces',serif;font-weight:500;margin:0;letter-spacing:-0.01em;}
+  p{margin:0;}
+  section{padding:56px 0;border-top:1px solid var(--line);}
+  .kicker{font-family:'Fraunces',serif;font-style:italic;font-size:14px;color:var(--rose);margin-bottom:10px;}
+  .section-title{font-size:clamp(24px,3vw,30px);margin-bottom:8px;}
+  .section-lede{font-size:15.5px;color:var(--body);max-width:60ch;margin-top:12px;}
+
+  /* hero */
+  .hero{padding:88px 0 56px;}
+  .hero h1{font-size:clamp(36px,5.5vw,54px);line-height:1.08;max-width:14ch;}
+  .hero .sub{margin-top:20px;font-size:17px;max-width:56ch;color:var(--body);}
+
+  /* mark */
+  .mark-row{display:flex;gap:48px;align-items:center;flex-wrap:wrap;margin-top:36px;}
+  .mark-card{background:var(--paper-card);border:1px solid var(--line);border-radius:4px;padding:32px 40px;display:flex;align-items:center;gap:18px;}
+  .wordmark{font-family:'Fraunces',serif;font-weight:500;font-size:28px;letter-spacing:-0.01em;}
+  .mark-note{font-size:13.5px;color:var(--muted);max-width:34ch;}
+
+  /* color swatches */
+  .swatches{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px;margin-top:32px;}
+  .swatch{border:1px solid var(--line);border-radius:4px;overflow:hidden;background:var(--paper-card);}
+  .swatch-color{height:88px;}
+  .swatch-body{padding:14px 16px;}
+  .swatch-name{font-family:'Fraunces',serif;font-size:16px;}
+  .swatch-hex{font-size:12.5px;color:var(--muted);margin-top:3px;letter-spacing:0.02em;}
+  .swatch-use{font-size:12.5px;color:var(--body);margin-top:8px;}
+
+  /* type */
+  .type-sample{border-top:1px solid var(--line);padding:22px 0;}
+  .type-sample:first-of-type{border-top:none;}
+  .type-role{font-size:12px;color:var(--rose);font-family:'Fraunces',serif;font-style:italic;margin-bottom:8px;}
+  .type-spec{font-size:12px;color:var(--muted);margin-top:8px;}
+
+  /* motif */
+  .motif-row{display:flex;gap:56px;align-items:center;margin-top:36px;flex-wrap:wrap;}
+  .motif-copy{flex:1;min-width:240px;}
+  .motif-copy p{font-size:14.5px;color:var(--body);margin-top:10px;}
+  .motif-svg{flex:0 0 300px;}
+
+  /* voice */
+  .voice-pair{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:4px;overflow:hidden;margin-top:14px;}
+  .voice-cell{padding:16px 20px;font-size:14.5px;}
+  .voice-cell.bad{background:rgba(178,90,104,0.07);color:var(--body);}
+  .voice-cell.good{background:rgba(95,111,78,0.09);color:var(--ink);}
+  .voice-label{font-size:11px;text-transform:none;font-family:'Fraunces',serif;font-style:italic;margin-bottom:6px;display:block;}
+  .voice-cell.bad .voice-label{color:var(--rose);}
+  .voice-cell.good .voice-label{color:var(--sage);}
+  .voice-head{display:grid;grid-template-columns:1fr 1fr;font-size:12px;color:var(--muted);margin-top:28px;}
+  .voice-head div{padding:0 20px;}
+
+  /* dos donts */
+  .dd-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:32px;}
+  .dd-col h3{font-size:16px;margin-bottom:14px;}
+  .dd-col.do h3{color:var(--sage);}
+  .dd-col.dont h3{color:var(--rose);}
+  .dd-col ul{margin:0;padding:0;list-style:none;}
+  .dd-col li{font-size:14px;color:var(--body);padding:9px 0 9px 20px;position:relative;border-top:1px solid var(--line);}
+  .dd-col li:first-child{border-top:none;}
+  .dd-col li:before{content:"";position:absolute;left:0;top:16px;width:6px;height:6px;border-radius:50%;}
+  .dd-col.do li:before{background:var(--sage);}
+  .dd-col.dont li:before{background:var(--rose);}
+
+  /* status dots */
+  .status-row{display:flex;gap:36px;margin-top:28px;flex-wrap:wrap;}
+  .status-chip{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--body);}
+  .dot{width:11px;height:11px;border-radius:50%;flex-shrink:0;}
+
+  footer{padding:48px 0 80px;}
+  footer p{font-size:14px;color:var(--muted);max-width:56ch;}
+
+  @media (max-width:720px){
+    .wrap{padding:0 20px;}
+    .voice-pair,.voice-head{grid-template-columns:1fr;}
+    .dd-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="kicker">brand kit — v1, drawn from the one-pager</div>
+    <h1>The visual language of noticing, not scoring.</h1>
+    <p class="sub">This is what's already established in the Throughline one-pager, pulled out and named so it can be applied consistently — to onboarding, the AI layer's copy, and anything new we build. Nothing here is a new decision; it's the existing system made explicit.</p>
+  </div>
+
+  <!-- MARK -->
+  <section>
+    <div class="kicker">Mark</div>
+    <h2 class="section-title">One person, many dates, one shape emerging</h2>
+    <p class="section-lede">The mark is a thread, not a logo in the badge/icon sense — three dots joined by dashed connectors, the last one solid rose. It reads as a timeline that hasn't resolved into a line yet, which is the whole product thesis in one glyph.</p>
+    <div class="mark-row">
+      <div class="mark-card">
+        <svg width="120" height="14" viewBox="0 0 120 14">
+          <circle cx="7" cy="7" r="5" fill="none" stroke="var(--ink)" stroke-width="1.3"/>
+          <line x1="14" y1="7" x2="46" y2="7" stroke="var(--ink)" stroke-width="1" stroke-dasharray="1 5" stroke-linecap="round"/>
+          <circle cx="53" cy="7" r="5" fill="none" stroke="var(--ink)" stroke-width="1.3"/>
+          <line x1="60" y1="7" x2="92" y2="7" stroke="var(--ink)" stroke-width="1" stroke-dasharray="1 5" stroke-linecap="round"/>
+          <circle cx="99" cy="7" r="5" fill="var(--rose)"/>
+        </svg>
+        <span class="wordmark">Throughline</span>
+      </div>
+      <p class="mark-note">Use the mark and wordmark together at launch-facing moments (splash, share cards, footer). In-product, the dashed-connector motif can appear alone — see Motif, below.</p>
+    </div>
+  </section>
+
+  <!-- COLOR -->
+  <section>
+    <div class="kicker">Color</div>
+    <h2 class="section-title">Paper, ink, and two signal colors</h2>
+    <p class="section-lede">Warm and low-saturation on purpose — this is a private journal, not a dashboard. Rose and sage are the only two colors that carry meaning; everything else is neutral.</p>
+    <div class="swatches">
+      <div class="swatch">
+        <div class="swatch-color" style="background:var(--paper);"></div>
+        <div class="swatch-body">
+          <div class="swatch-name">Paper</div>
+          <div class="swatch-hex">#EFE8D8</div>
+          <div class="swatch-use">App background. Never pure white.</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:var(--paper-card);"></div>
+        <div class="swatch-body">
+          <div class="swatch-name">Paper card</div>
+          <div class="swatch-hex">#F8F3E6</div>
+          <div class="swatch-use">Cards, entries, raised surfaces. A shade lighter than paper — no drop shadow needed.</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:var(--ink);"></div>
+        <div class="swatch-body">
+          <div class="swatch-name" style="color:#efe8d8;">Ink</div>
+          <div class="swatch-hex" style="color:#c9c4b3;">#23241F</div>
+          <div class="swatch-use" style="color:#c9c4b3;">Primary text, hairlines, mark outlines.</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:var(--rose);"></div>
+        <div class="swatch-body">
+          <div class="swatch-name">Rose</div>
+          <div class="swatch-hex">#B25A68</div>
+          <div class="swatch-use">Pre-date status, "before" moments, italic kickers. Warmth, not warning.</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:var(--sage);"></div>
+        <div class="swatch-body">
+          <div class="swatch-name">Sage</div>
+          <div class="swatch-hex">#5F6F4E</div>
+          <div class="swatch-use">Dating status, growth/pattern moments, positive-but-quiet confirmation.</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:var(--muted);"></div>
+        <div class="swatch-body">
+          <div class="swatch-name" style="color:#efe8d8;">Muted</div>
+          <div class="swatch-hex" style="color:#c9c4b3;">#5C5D52</div>
+          <div class="swatch-use" style="color:#c9c4b3;">Timestamps, captions, secondary labels.</div>
+        </div>
+      </div>
+    </div>
+    <p class="section-lede" style="margin-top:24px;">Rose and sage are <strong>never</strong> a red/green good–bad pair — they mark pipeline stage (pre-date vs. dating), not a verdict on the person or the date. Don't let them drift into a traffic-light system.</p>
+  </section>
+
+  <!-- TYPE -->
+  <section>
+    <div class="kicker">Type</div>
+    <h2 class="section-title">Fraunces for feeling, Inter for function</h2>
+    <p class="section-lede">Two families, clearly distinct roles. Fraunces (a soft, literary serif) carries anything that should feel like it was written, not generated — headlines, italic kickers, the AI's own observations. Inter handles everything that needs to be read quickly and neutrally — body copy, timestamps, buttons, form labels.</p>
+
+    <div class="type-sample">
+      <div class="type-role">Fraunces · display</div>
+      <div style="font-family:'Fraunces',serif;font-size:38px;font-weight:500;letter-spacing:-0.01em;">Every date leaves a trace.</div>
+      <div class="type-spec">Headlines, section titles. Weight 500, sizes 28–54px depending on context.</div>
+    </div>
+    <div class="type-sample">
+      <div class="type-role">Fraunces · italic kicker</div>
+      <div style="font-family:'Fraunces',serif;font-style:italic;font-size:15px;color:var(--rose);">a concept for a dating journal</div>
+      <div class="type-spec">Section eyebrows, stage labels ("Before" / "After"), and — importantly — the AI layer's noticing statements ("You've mentioned intellectual equality 11 times"). Italic signals "an observation," never a fact.</div>
+    </div>
+    <div class="type-sample">
+      <div class="type-role">Inter · body</div>
+      <div style="font-size:16px;color:var(--body);max-width:56ch;">How it felt, what you talked about, what you'd want again. Written while it's still fresh, attributed to that person automatically.</div>
+      <div class="type-spec">Body copy, entries, notes. Weight 400. Line length under ~65 characters for comfortable reading.</div>
+    </div>
+    <div class="type-sample">
+      <div class="type-role">Inter · UI label</div>
+      <div style="font-size:13px;color:var(--muted);">notes about them &nbsp;·&nbsp; entries &nbsp;·&nbsp; dating &nbsp;·&nbsp; stepped away</div>
+      <div class="type-spec">Sentence case always — no tracked-out all-caps labels. Weight 500 for anything interactive.</div>
+    </div>
+  </section>
+
+  <!-- MOTIF -->
+  <section>
+    <div class="kicker">Motif</div>
+    <h2 class="section-title">Dashes connect, dots mark a moment</h2>
+    <div class="motif-row">
+      <div class="motif-copy">
+        <p>The dashed hairline is the connective tissue of the whole system — it's what turns a list of separate dates into a thread. Solid dots mark a completed entry; a hollow or faint dot marks something not yet real (a prospect, a step not yet taken).</p>
+        <p>This motif replaces badges, streak counters, and progress bars everywhere. Progress in Throughline looks like a thread getting longer, not a meter filling up.</p>
+      </div>
+      <div class="motif-svg">
+        <svg viewBox="0 0 300 90" xmlns="http://www.w3.org/2000/svg">
+          <line x1="20" y1="45" x2="280" y2="45" stroke="var(--ink)" stroke-width="1" stroke-dasharray="1 6" opacity="0.4"/>
+          <circle cx="20" cy="45" r="7" fill="var(--rose)"/>
+          <circle cx="100" cy="45" r="7" fill="var(--rose)" opacity="0.55"/>
+          <circle cx="180" cy="45" r="7" fill="var(--sage)"/>
+          <circle cx="260" cy="45" r="7" fill="none" stroke="var(--ink)" stroke-width="1.3" opacity="0.4" stroke-dasharray="2 2"/>
+        </svg>
+      </div>
+    </div>
+    <div class="status-row">
+      <div class="status-chip"><span class="dot" style="background:var(--rose);"></span> Pre-date — arranging</div>
+      <div class="status-chip"><span class="dot" style="background:var(--sage);"></span> Dating — one or more dates in</div>
+      <div class="status-chip"><span class="dot" style="border:1.3px dashed var(--ink);opacity:0.5;"></span> Prospect / stepped away — outside the pipeline</div>
+    </div>
+  </section>
+
+  <!-- VOICE -->
+  <section>
+    <div class="kicker">Voice</div>
+    <h2 class="section-title">Noticing, not verdicts</h2>
+    <p class="section-lede">This is the one place brand and product constraint are the same rule: every piece of copy, especially anything AI-generated, offers an observation the user can take or leave. It never delivers a score, a diagnosis, or a label for another person.</p>
+    <div class="voice-head"><div>Avoid</div><div>Use instead</div></div>
+    <div class="voice-pair">
+      <div class="voice-cell bad"><span class="voice-label">score</span>"You are 87% compatible."</div>
+      <div class="voice-cell good"><span class="voice-label">pattern</span>"Here are three things you've consistently valued."</div>
+    </div>
+    <div class="voice-pair">
+      <div class="voice-cell bad"><span class="voice-label">label</span>"You're attracted to unhealthy people."</div>
+      <div class="voice-cell good"><span class="voice-label">tension</span>"There appears to be a tension between what you say you want and who you find yourself attracted to."</div>
+    </div>
+    <div class="voice-pair">
+      <div class="voice-cell bad"><span class="voice-label">diagnosis</span>"You're anxiously attached."</div>
+      <div class="voice-cell good"><span class="voice-label">description</span>"You've described feeling anxious after three of your last five dates."</div>
+    </div>
+    <div class="voice-pair">
+      <div class="voice-cell bad"><span class="voice-label">gamified</span>"🔥 7-date streak! Keep it going."</div>
+      <div class="voice-cell good"><span class="voice-label">unhurried</span>"You've logged 7 dates since you started paying attention."</div>
+    </div>
+  </section>
+
+  <!-- DO / DONT -->
+  <section>
+    <div class="kicker">Applying the system</div>
+    <h2 class="section-title">Do / don't</h2>
+    <div class="dd-grid">
+      <div class="dd-col do">
+        <h3>Do</h3>
+        <ul>
+          <li>Use italic Fraunces to visually mark anything the app is "noticing," so it reads differently from the user's own writing</li>
+          <li>Let sage and rose mark pipeline stage only</li>
+          <li>Use the dashed-line motif for progress and connection</li>
+          <li>Keep labels in sentence case</li>
+          <li>Leave generous whitespace — this is a journal, it should feel unhurried</li>
+        </ul>
+      </div>
+      <div class="dd-col dont">
+        <h3>Don't</h3>
+        <ul>
+          <li>Introduce a percentage, star rating, or score as a visual pattern</li>
+          <li>Use emoji as a substitute for iconography (🔥📉🚩 read as competitor, not Throughline)</li>
+          <li>Add streaks, badges, or progress bars</li>
+          <li>Use rose/sage as a red/green good-bad signal</li>
+          <li>Reach for drop shadows or rounded SaaS-card chrome — flat, hairline-bordered surfaces only</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>This is v1 — drawn entirely from decisions already visible in the one-pager. As we design new screens and the AI layer's actual copy, this doc is the place to add to, not a new one.</p>
+  </footer>
+
+</div>
+</body>
+</html>
