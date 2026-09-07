@@ -16,6 +16,7 @@
     --line:rgba(35,36,31,0.16);
     --wf-fill:#e7e4da;
     --wf-fill-dim:#efece5;
+    --amber:#b98d3e;
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
@@ -94,6 +95,17 @@
   .pill.selected{border-color:var(--rose);background:rgba(178,90,104,0.08);}
   .avatar{border-radius:50%;background:var(--wf-fill);border:1.2px solid #c9c6ba;}
   .chevron{font-size:13px;color:#b7b4a8;font-family:Inter;}
+
+  .chip{display:inline-flex;align-items:center;border:1.3px solid var(--ink);border-radius:12px;padding:4px 9px;font-size:10px;opacity:0.7;margin:0 6px 6px 0;white-space:nowrap;}
+  .chip.green{border-color:var(--sage);color:var(--sage);background:rgba(95,111,78,0.08);opacity:1;}
+  .chip.yellow{border-color:var(--amber);color:var(--amber);background:rgba(185,141,62,0.09);opacity:1;}
+  .chip.add{border-style:dashed;opacity:0.5;padding:4px 8px;}
+
+  .stars{font-size:21px;letter-spacing:3px;color:var(--rose);line-height:1;}
+  .stars .empty{color:#d8d4c8;}
+
+  .add-row{display:flex;align-items:center;gap:8px;border:1.3px dashed #b7b4a8;border-radius:8px;padding:9px 10px;color:#8a8b80;font-size:11px;}
+  .add-row .plus-dot{width:15px;height:15px;border-radius:50%;border:1.3px solid #b7b4a8;display:flex;align-items:center;justify-content:center;font-size:10px;line-height:1;flex-shrink:0;}
 
   /* ---------- tab bar ---------- */
   .tabbar{
@@ -393,31 +405,37 @@
               <div class="wf-line dim" style="width:34px;margin-bottom:6px;"></div>
               <div class="wf-outline" style="height:32px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;margin-bottom:12px;"><div class="wf-line" style="width:90px;"></div><div class="chevron">›</div></div>
 
-              <div class="wf-line dim" style="width:40px;margin-bottom:6px;"></div>
-              <div class="wf-outline" style="height:32px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;margin-bottom:14px;"><div class="wf-line" style="width:110px;"></div><div class="chevron">›</div></div>
+              <div class="wf-line dim" style="width:44px;margin-bottom:6px;"></div>
+              <div class="wf-outline" style="height:32px;display:flex;align-items:center;padding:0 10px;margin-bottom:12px;"><div class="wf-line dim" style="width:100px;"></div></div>
 
-              <div class="section-label">How it felt</div>
-              <div style="position:relative;">
-                <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><div class="wf-line dim" style="width:56px;"></div></div>
-                <div class="wf-outline" style="height:10px;border-radius:5px;margin-bottom:12px;position:relative;"><div style="position:absolute;left:60%;top:-3px;width:14px;height:14px;border-radius:50%;background:var(--rose);"></div></div>
-                <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><div class="wf-line dim" style="width:50px;"></div></div>
-                <div class="wf-outline" style="height:10px;border-radius:5px;margin-bottom:12px;position:relative;"><div style="position:absolute;left:35%;top:-3px;width:14px;height:14px;border-radius:50%;background:var(--rose);"></div></div>
-                <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><div class="wf-line dim" style="width:70px;"></div></div>
-                <div class="wf-outline" style="height:10px;border-radius:5px;margin-bottom:12px;position:relative;"><div style="position:absolute;left:70%;top:-3px;width:14px;height:14px;border-radius:50%;background:var(--rose);"></div></div>
-                <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><div class="wf-line dim" style="width:52px;"></div></div>
-                <div class="wf-outline" style="height:10px;border-radius:5px;position:relative;"><div style="position:absolute;left:45%;top:-3px;width:14px;height:14px;border-radius:50%;background:var(--rose);"></div></div>
-                <div class="callout" style="top:0;right:0;width:100px;">attraction · validation · compatibility · capacity — four rows, never one score</div>
+              <div class="wf-line dim" style="width:70px;margin-bottom:6px;"></div>
+              <div class="stars" style="margin-bottom:12px;">★★★★<span class="empty">★</span></div>
+
+              <div class="section-label">Significant moments</div>
+              <div class="wf-outline" style="height:52px;margin-bottom:12px;"></div>
+
+              <div class="wf-line dim" style="width:150px;margin-bottom:8px;"></div>
+              <div style="margin-bottom:12px;">
+                <span class="chip">Excited</span><span class="chip">Comfortable</span><span class="chip">Anxious</span><span class="chip add">+</span>
               </div>
 
-              <div class="section-label" style="margin-top:16px;">What did this teach me?</div>
-              <div class="wf-outline" style="height:66px;"></div>
+              <div class="wf-line dim" style="width:60px;margin-bottom:8px;"></div>
+              <div style="margin-bottom:14px;">
+                <span class="chip">Coffee</span><span class="chip">Walk</span><span class="chip">Dinner</span><span class="chip add">+</span>
+              </div>
+
+              <div class="section-label">Notes</div>
+              <div class="add-row"><div class="plus-dot">+</div><span>Add a note</span></div>
+              <div style="font-family:'Fraunces',serif;font-style:italic;font-size:9px;color:#8a8b80;margin-top:6px;">available once this date is saved</div>
+
+              <div class="callout" style="top:0;right:0;width:78px;">rating reflects the date, not the person</div>
             </div>
             <div class="home-indicator"></div>
           </div>
         </div>
         <figcaption>
           <div class="cap-title">New Date</div>
-          <div class="cap-note">The four signals get their own row each — no combined score, ever. The Learning field is the largest text field on the screen, on purpose.</div>
+          <div class="cap-note">Person, location, an overall 1–5 rating, significant moments, and two tag sets (feelings, activities). Notes attach afterward, once the entry exists, rather than as one more field to fill in now.</div>
         </figcaption>
       </figure>
 
@@ -435,18 +453,27 @@
               <div class="wf-line dim" style="width:36px;margin-bottom:6px;"></div>
               <div class="wf-outline" style="height:32px;margin-bottom:14px;"></div>
 
-              <div class="wf-line dim" style="width:76px;margin-bottom:6px;"></div>
-              <div class="wf-outline" style="height:48px;margin-bottom:14px;"></div>
+              <div class="wf-line dim" style="width:100px;margin-bottom:6px;"></div>
+              <div class="wf-outline" style="height:44px;margin-bottom:14px;"></div>
 
               <div class="wf-line dim" style="width:44px;margin-bottom:8px;"></div>
               <div style="display:flex;gap:8px;margin-bottom:16px;">
                 <div class="pill selected" style="padding:6px 12px;font-size:11px;">Prospect</div>
                 <div class="pill" style="padding:6px 12px;font-size:11px;opacity:0.5;">Pre-date</div>
-                <div class="pill" style="padding:6px 12px;font-size:11px;opacity:0.5;">Dating</div>
+              </div>
+
+              <div class="section-label" style="color:var(--sage);">Green flags</div>
+              <div style="margin-bottom:10px;">
+                <span class="chip green">Great listener</span><span class="chip green">Followed up</span><span class="chip add">+</span>
+              </div>
+
+              <div class="section-label" style="color:var(--amber);">Yellow flags</div>
+              <div style="margin-bottom:14px;">
+                <span class="chip yellow">Vague on plans</span><span class="chip add">+</span>
               </div>
 
               <div class="section-label">Notes</div>
-              <div class="wf-outline" style="height:90px;"></div>
+              <div class="add-row"><div class="plus-dot">+</div><span>Add a note</span></div>
               <div style="font-family:'Fraunces',serif;font-style:italic;font-size:9px;color:#8a8b80;margin-top:6px;">this is where the timestamped log starts</div>
             </div>
             <div class="home-indicator"></div>
@@ -454,7 +481,7 @@
         </div>
         <figcaption>
           <div class="cap-title">New Person</div>
-          <div class="cap-note">Status defaults to Prospect — the lightest commitment. A person can sit here indefinitely with notes and no pipeline status at all.</div>
+          <div class="cap-note">Status only toggles Prospect ⇄ Pre-date here — Dating gets set automatically the moment a first date is logged. Flags are the user's own tags, not app-generated labels; no "toxic" or "avoidant" ever gets auto-applied.</div>
         </figcaption>
       </figure>
 
@@ -477,17 +504,15 @@
 
               <div class="wf-outline" style="height:32px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;margin-bottom:16px;"><div class="wf-line" style="width:96px;"></div><div class="chevron">›</div></div>
 
-              <div class="wf-outline" style="height:120px;"></div>
+              <div class="wf-outline" style="height:140px;"></div>
               <div style="font-family:'Fraunces',serif;font-style:italic;font-size:9px;color:#8a8b80;margin-top:6px;">added just now</div>
-
-              <div class="callout" style="top:52px;right:0;width:96px;">appendable any time — never edits the original entry</div>
             </div>
             <div class="home-indicator"></div>
           </div>
         </div>
         <figcaption>
           <div class="cap-title">New Note</div>
-          <div class="cap-note">Attaches to either a person or a specific date entry. Quick and freeform by design — this is not a second reflection form competing with the Entry's Learning field.</div>
+          <div class="cap-note">Just raw text and a target. No structure imposed — it gets appended to whichever person or date it's attached to, timestamped, as-is.</div>
         </figcaption>
       </figure>
 
