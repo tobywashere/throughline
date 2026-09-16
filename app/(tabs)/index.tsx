@@ -36,22 +36,15 @@ export default function HomeScreen() {
   return (
     <Screen title="Home">
       <Text style={styles.sectionLabel}>Pipeline</Text>
-      <View style={styles.columns}>
-        <PipelineColumn label="Pre-date" color={colors.rose} people={preDate} onLongPress={onLongPressCard} />
-        <PipelineColumn label="1st date" color={colors.sage} people={firstDate} onLongPress={onLongPressCard} />
-        <PipelineColumn label="2nd date" color={colors.sage} people={secondDate} onLongPress={onLongPressCard} />
-        <PipelineColumn label="3rd+ date" color={colors.sage} people={thirdPlusDate} onLongPress={onLongPressCard} />
-      </View>
-
-      <Text style={[styles.sectionLabel, { marginTop: spacing.xl, opacity: 0.5 }]}>Journey</Text>
-      <View style={styles.journeyCard}>
-        <Text style={styles.journeyPaused}>on hold for now</Text>
-      </View>
+      <PipelineStage label="Pre-date" color={colors.rose} people={preDate} onLongPress={onLongPressCard} />
+      <PipelineStage label="1st date" color={colors.sage} people={firstDate} onLongPress={onLongPressCard} />
+      <PipelineStage label="2nd date" color={colors.sage} people={secondDate} onLongPress={onLongPressCard} />
+      <PipelineStage label="3rd+ date" color={colors.sage} people={thirdPlusDate} onLongPress={onLongPressCard} />
     </Screen>
   );
 }
 
-function PipelineColumn({
+function PipelineStage({
   label,
   color,
   people,
@@ -63,20 +56,20 @@ function PipelineColumn({
   onLongPress: (p: Person) => void;
 }) {
   return (
-    <View style={styles.column}>
-      <Text style={[styles.columnLabel, { color }]}>{label}</Text>
+    <View style={styles.stage}>
+      <Text style={[styles.stageLabel, { color }]}>{label}</Text>
       {people.length === 0 ? (
         <Text style={styles.emptyText}>—</Text>
       ) : (
         people.map((person) => (
           <Pressable
             key={person.id}
-            style={styles.card}
+            style={styles.row}
             onPress={() => router.push(`/person/${person.id}`)}
             onLongPress={() => onLongPress(person)}
           >
-            <Avatar name={person.name} size={22} />
-            <Text style={styles.cardName} numberOfLines={1}>
+            <Avatar name={person.name} size={26} />
+            <Text style={styles.rowName} numberOfLines={1}>
               {person.name}
             </Text>
           </Pressable>
@@ -94,41 +87,24 @@ const styles = StyleSheet.create({
     color: colors.rose,
     marginBottom: spacing.sm,
   },
-  columns: { flexDirection: 'row', gap: spacing.xs },
-  column: { flex: 1, minWidth: 0 },
-  columnLabel: {
+  stage: { marginBottom: spacing.lg },
+  stageLabel: {
     fontFamily: fonts.serifItalic,
     fontStyle: 'italic',
-    fontSize: 10.5,
+    fontSize: 13,
     marginBottom: spacing.sm,
   },
-  card: {
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
     borderWidth: 1.3,
     borderColor: colors.outlineDash,
     borderRadius: radii.sm,
     backgroundColor: colors.card,
-    padding: 6,
-    alignItems: 'center',
-    gap: 4,
+    padding: spacing.sm,
     marginBottom: spacing.xs,
   },
-  cardName: { fontFamily: fonts.sansMedium, fontSize: 10, color: colors.ink, textAlign: 'center' },
+  rowName: { fontFamily: fonts.sansMedium, fontSize: 14, color: colors.ink },
   emptyText: { fontFamily: fonts.sans, fontSize: 12, color: colors.inkFaint, opacity: 0.4 },
-  journeyCard: {
-    borderWidth: 1.3,
-    borderColor: colors.outlineDash,
-    borderRadius: radii.sm,
-    backgroundColor: colors.card,
-    padding: 10,
-    height: 56,
-    alignItems: 'center',
-    justifyContent: 'center',
-    opacity: 0.5,
-  },
-  journeyPaused: {
-    fontFamily: fonts.serifItalic,
-    fontStyle: 'italic',
-    fontSize: 12.5,
-    color: colors.inkFaint,
-  },
 });
