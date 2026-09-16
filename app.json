@@ -10,7 +10,10 @@
     "backgroundColor": "#efe8d8",
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.throughline.app"
+      "bundleIdentifier": "com.throughlinedating.app",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "package": "com.throughline.app",
