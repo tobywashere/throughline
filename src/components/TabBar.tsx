@@ -1,15 +1,23 @@
-import { useState } from 'react';
+import { useState, type ComponentType } from 'react';
 import { View, Text, Pressable, StyleSheet, Modal } from 'react-native';
 import { router } from 'expo-router';
 import type { BottomTabBarProps } from 'expo-router/tabs';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colors, fonts, spacing } from '../theme';
+import { HomeIcon, PersonIcon, HeartIcon, GearIcon, type TabIconProps } from './icons/TabIcons';
 
 const TAB_LABELS: Record<string, string> = {
   index: 'Home',
   people: 'People',
   dates: 'Dates',
   settings: 'Settings',
+};
+
+const TAB_ICONS: Record<string, ComponentType<TabIconProps>> = {
+  index: HomeIcon,
+  people: PersonIcon,
+  dates: HeartIcon,
+  settings: GearIcon,
 };
 
 const MENU_ITEMS = [
@@ -28,6 +36,7 @@ export function TabBar({ state, navigation }: BottomTabBarProps) {
         {state.routes.map((route, index) => {
           const focused = state.index === index;
           const label = TAB_LABELS[route.name] ?? route.name;
+          const Icon = TAB_ICONS[route.name];
           return (
             <Pressable
               key={route.key}
@@ -36,7 +45,9 @@ export function TabBar({ state, navigation }: BottomTabBarProps) {
                 if (!focused) navigation.navigate(route.name);
               }}
             >
-              <View style={[styles.tabIcon, focused && styles.tabIconActive]} />
+              <View style={{ opacity: focused ? 1 : 0.5 }}>
+                {Icon && <Icon focused={focused} size={22} color={colors.ink} />}
+              </View>
               <Text style={[styles.tabLabel, focused && styles.tabLabelActive]}>{label}</Text>
             </Pressable>
           );
@@ -85,18 +96,6 @@ const styles = StyleSheet.create({
     paddingTop: 11,
   },
   tabItem: { flex: 1, alignItems: 'center', gap: 5 },
-  tabIcon: {
-    width: 19,
-    height: 19,
-    borderRadius: 5,
-    borderWidth: 1.4,
-    borderColor: colors.ink,
-    opacity: 0.32,
-  },
-  tabIconActive: {
-    opacity: 1,
-    backgroundColor: colors.ink,
-  },
   tabLabel: { fontFamily: fonts.sans, fontSize: 9, color: colors.ink, opacity: 0.4 },
   tabLabelActive: { opacity: 1, fontFamily: fonts.sansSemiBold },
   fab: {
