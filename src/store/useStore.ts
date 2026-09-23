@@ -5,6 +5,7 @@ import { fetchAllPeople, insertPerson, updatePersonRow, deletePersonRow } from '
 import { fetchAllEntries, insertEntry, updateEntryRow, deleteEntryRow } from '../db/entries';
 import { fetchAllNotes, insertNote, deleteNoteRow } from '../db/notes';
 import { resetAllData } from '../db/client';
+import { restoreBackup, type BackupPayload } from '../db/backup';
 
 interface NewPersonInput {
   name: string;
@@ -32,6 +33,7 @@ interface Store {
 
   hydrate: () => Promise<void>;
   resetAll: () => Promise<void>;
+  importAll: (backup: BackupPayload) => Promise<void>;
 
   addPerson: (input: NewPersonInput) => Promise<Person>;
   updatePerson: (id: string, patch: Partial<NewPersonInput>) => Promise<void>;
@@ -70,6 +72,11 @@ export const useStore = create<Store>((set, get) => ({
   resetAll: async () => {
     await resetAllData();
     set({ people: [], entries: [], notes: [] });
+  },
+
+  importAll: async (backup) => {
+    await restoreBackup(backup);
+    await get().hydrate();
   },
 
   addPerson: async (input) => {

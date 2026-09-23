@@ -3,6 +3,7 @@ import { File, Paths } from 'expo-file-system';
 import * as Sharing from 'expo-sharing';
 import { Screen } from '../../src/components/Screen';
 import { useStore } from '../../src/store/useStore';
+import { parseBackup, type BackupPayload } from '../../src/db/backup';
 import { colors, fonts, spacing } from '../../src/theme';
 
 export default function SettingsScreen() {
@@ -10,6 +11,7 @@ export default function SettingsScreen() {
   const entries = useStore((s) => s.entries);
   const notes = useStore((s) => s.notes);
   const resetAll = useStore((s) => s.resetAll);
+  const importAll = useStore((s) => s.importAll);
 
   async function handleExport() {
     const payload = {
@@ -28,6 +30,40 @@ export default function SettingsScreen() {
     }
   }
 
+  async function handleImport() {
+    let backup: BackupPayload;
+    try {
+      const picked = await File.pickFileAsync({ mimeTypes: ['application/json', 'text/plain'] });
+      if (picked.canceled) return;
+      backup = parseBackup(await picked.result.text());
+    } catch (e) {
+      Alert.alert("Couldn't read that file", e instanceof Error ? e.message : String(e));
+      return;
+    }
+
+    const exported = backup.exportedAt ? ` from ${new Date(backup.exportedAt).toLocaleString()}` : '';
+    Alert.alert(
+      'Replace all data?',
+      `This export${exported} has ${backup.people.length} people, ${backup.entries.length} dates, and ${backup.notes.length} notes. ` +
+        'Everything currently in the app will be replaced.',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Replace',
+          style: 'destructive',
+          onPress: async () => {
+            try {
+              await importAll(backup);
+              Alert.alert('Import complete', 'Your data has been restored.');
+            } catch (e) {
+              Alert.alert('Import failed', `Nothing was changed. ${e instanceof Error ? e.message : String(e)}`);
+            }
+          },
+        },
+      ]
+    );
+  }
+
   function handleDeleteAll() {
     Alert.alert(
       'Delete everything?',
@@ -43,6 +79,7 @@ export default function SettingsScreen() {
     <Screen title="Settings">
       <Row label="Privacy & data" detail="Everything lives only on this device — nothing is uploaded." />
       <Row label="Export data" detail="Save a copy of everyone and every date as a JSON file." onPress={handleExport} />
+      <Row label="Import data" detail="Restore from a Throughline JSON export. Replaces what's here now." onPress={handleImport} />
       <Row
         label="About Throughline"
         detail="A dating journal built around two moments of writing: before and after."
